@@ -6,7 +6,7 @@ import java.util.Arrays;
  * Use minStack to keep track of mins
  * Note: space-time tradeoff & duplicates
  */
-class MinStack {
+public class MinStack {
 	private int[] internalArray;
 	private int nextIndex;
 	private int[] minStack;
