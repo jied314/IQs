@@ -1,3 +1,4 @@
+
 class NumberOf1Bits:
     # @param n, an integer
     # @return an integer
