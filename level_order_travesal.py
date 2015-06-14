@@ -17,6 +17,7 @@ class Solution:
         else:
             return self.singleLevelOrder([root])
 
+    # recursion
     def singleLevelOrder(self, roots):        
         if roots:   
             nodes = [[]]     
@@ -34,4 +35,50 @@ class Solution:
         else:
             nodes = []
         return nodes
+
+    # use procedural
+    def bfs(self, root):
+        if root is None:
+            return []
+        nodes = []
+        current_level = [root]
+        children = []
+        level = 0
+        while True:
+            nodes.insert(level, [x.val for x in current_level])
+            for node in current_level:
+                leftChild = node.left
+                rightChild = node.right
+                if leftChild is not None:
+                    children.append(leftChild)
+                if rightChild is not None:
+                    children.append(rightChild)
+            if children:
+                current_level = children
+                children = []
+                level += 1
+            else:
+                break
+        return nodes
+
+    # use DFS to traverse, but not actually level order
+    def dfs(self, root):
+        result = []
+        if root is not None:
+            self.traverse(root, 0, result)
+        return result
+
+    # use DFS
+    def traverse(self, node, level, visited):
+        if node is not None:
+            if len(visited) == level:
+                visited.insert(level, [])
+            visited[level].append(node.val)
+            if node.left is not None:
+                self.traverse(node.left, level + 1, visited)
+            if node.right is not None:
+                self.traverse(node.right, level + 1, visited)
+
+
+
 
