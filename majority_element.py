@@ -1,0 +1,34 @@
+# Divide and Conquer, Array, Bit Manipulation - Majority Element
+# Given an array of size n, find the majority element. The majority element is
+# the element that appears more than ⌊ n/2 ⌋ times.
+# You may assume that the array is non-empty and the majority element always exist in the array.
+# 6/17
+#
+class MajorityElement:
+    # @param {integer[]} nums
+    # @return {integer}
+    # Test on LeetCode - 79ms
+    def majority_element_hashtable(self, nums):
+        """use HashTable - Running Time: O(n), Space: O(n)"""
+        frequency = {}
+        goal = len(nums) / 2
+        for num in nums:
+            if frequency.has_key(num):
+                frequency[num] += 1
+            else:
+                frequency[num] = 1
+            if frequency[num] > goal:
+                return num
+
+    # sort the list, the n/2th element must be the majority element - Running Time: O(nlgn)
+    def majority_element_sort(self, nums):
+        nums.sort()
+        return nums[len(nums) / 2]
+
+def main():
+    test = MajorityElement()
+    print test.majority_element_hashtable([1, 2, 2, 2, 1])
+    print test.majority_element_sort([1, 2, 2, 2, 1])
+
+if __name__ == '__main__':
+    main()
