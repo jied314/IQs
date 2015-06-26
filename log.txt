@@ -1,0 +1,27 @@
+6/6 - 1 Min Stack(Stack)
+6/7 - 1 Interleaving String(Dynamic Programming, String) - not finish yet
+
+Week1: 13 (9 Easy + 4 Medium)
+6/8 - 1 Rectangle Area(Math)
+6/9 - 2 Finish Rectangle Area, Anagrams(Hash Table, String)
+6/10 - 0 Number Of Islands(DFS, BFS) - not finish yet, Course Schedule(DFS, BFS, Graph) - not finish yet
+6/11 - 2 Number of 1 Bits(Bit Manipulation), Path Sum(DFS)
+6/12 - 2 Level Order Travesal(BFS, DFS), Revisit Course Schedule
+6/13 - 1 Finish Course Schedule (DFS, BFS)
+6/14 - 5 Finish Number of Islands (DFS, BFS), Zigzag Conversion (String), House Robber (DP), Climbing Stairs (DP), Contain Duplicate(Array, HashTable)
+
+Week2: 23 (20 Easy + 3 Medium)
+6/15 - 3 Contain Duplicate 1 & 2(Array, HashTable), Reverse Linked List(Linked List), Isomorphic Strings (HashTable)
+6/16 - 4 Remove Linked List Elements(Linked List), Happy Number(HashTable), Reverse Bits(Bit Manipulation), Reverse Integer(Math)
+6/17 - 5 Rotate Array(Array), Reverse Words in a String(Sting), Factorial Trailing Zeroes(Math), Excel Sheet Column Number (Math), Excel Sheet Column Title(Math)
+6/18 - 3 Convert Version Number(String), Linked List Intersection(Linked List), Valid Palindrome(Two Pointers, String)
+6/19 - 4 String to Integer(Math, String), Palindrome Number(Math), Roman to Integer(Math, String), Longest Common Prefix(String)
+6/20 - 2 Remove Nth Node from List End(Linked List, Two Pointers), Implement Stack using Queue(Data Structure)
+6/21 - 2 Basic Calculator(Math, Stack), Count Complete Binary Tree Nodes(Tree, Binary Search)
+
+Week3:
+6/22 - 0
+6/23 - 0
+6/24 - 0
+6/25 - start working on ContainDuplicate3
+6/26 - finish ContainDuplicate3, 
