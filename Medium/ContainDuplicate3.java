@@ -13,6 +13,7 @@
 
 import java.util.TreeSet;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ContainDuplicate3 {
 	// utilize tree
