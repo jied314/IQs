@@ -50,3 +50,26 @@ class PreorderTraversal:
                 if node.left is not None:
                     visit.append(node.left)
         return order
+
+    # Test on LeetCode - 60ms
+    # slightly different from inorder_tracersal
+    def preorder_traversal_morris(self, root):
+        order = []
+        node = root
+        while node is not None:
+            if node.left is None:
+                order.append(node.val)
+                node = node.right
+            else:
+                # find the preorder predecessor of node (rightmost node of the left subtree)
+                pre = node.left
+                while pre.right is not None and pre.right != node:
+                    pre = pre.right
+                if pre.right is None:  # not point to node
+                    order.append(node.val)
+                    pre.right = node
+                    node = node.left
+                else:  # already point to node
+                    pre.right = None
+                    node = node.right
+        return order
