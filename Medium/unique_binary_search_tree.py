@@ -29,7 +29,7 @@ class UniqueBinarySearchTree:
 
 def main():
     test = UniqueBinarySearchTree()
-    print test.num_trees_map(3)
+    print test.num_trees_map(4)
 
 
 if __name__ == '__main__':
