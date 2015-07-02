@@ -13,68 +13,40 @@ from copy import deepcopy
 #              and when we reach the end of the tree, don't forget we can also add the nth node here.
 #       One thing to notice is that every time we push a TreeNode in our result, I push the clone version of the root,
 #       and I recover what I do to the old node immediately. This is because you may use the old tree for several times.
-
+#   2. DP:
+#       Can be helpful since reuse the previous results.
+#       However, problems are: deepcopy trees and adjust node val (which implicitly involves traverse the entire trees)
+#   3. Recursive without DP (actually faster 96ms V.S. 600ms)
 class UniqueBinarySearchTree:
     # @param {integer} n
     # @return {TreeNode[]}
 
-    # Test on LeetCode - 696ms
+    # Test on LeetCode - 580ms
     def generate_trees_dj(self, n):
         tree_structures = []
-        tree_structures.append([[]])
-        tree_structures.append([TreeNode(1)])
-        tree_structures.append(self.two_node_trees(1, 2))
-        for i in range(3, n + 1):
+        tree_structures.append([None])
+        for i in range(1, n + 1):
             trees = []
             for j in range(1, i + 1):
-                root = TreeNode(j)
                 left = j - 1
                 right = i - j
-                left_children = None
-                right_children = None
-                if left > 0:
-                    left_children = self.search_tree_structure(tree_structures, left, 1)
-                if right > 0:
-                    right_children = self.search_tree_structure(tree_structures, right, j + 1)
-
-                if left_children:
-                    for left_child in left_children:
-                        if right_children:
-                            for right_child in right_children:
-                                new_root = deepcopy(root)
-                                new_root.left = deepcopy(left_child)
-                                new_root.right = deepcopy(right_child)
-                                trees.append(new_root)
-                        else:
-                            new_root = deepcopy(root)
-                            new_root.left = deepcopy(left_child)
-                            trees.append(new_root)
-                else:
+                left_children = self.search_tree_structure(tree_structures, left, 1)
+                right_children = self.search_tree_structure(tree_structures, right, j + 1)
+                for left_child in left_children:
                     for right_child in right_children:
-                        new_root = deepcopy(root)
-                        new_root.right = deepcopy(right_child)
-                        trees.append(new_root)
+                        root = TreeNode(j)
+                        root.left = deepcopy(left_child)
+                        root.right = deepcopy(right_child)
+                        trees.append(root)
             tree_structures.append(trees)
         return tree_structures[n]
-
-    # note: num1 < nums2
-    def two_node_trees(self, num1, num2):
-        trees = []
-        one = TreeNode(num1)
-        two = TreeNode(num2)
-        one.right = two
-        trees.append(one)
-        one = TreeNode(num1)
-        two = TreeNode(num2)
-        two.left = one
-        trees.append(two)
-        return trees
 
     # note: start is the desired range beginning
     def search_tree_structure(self, tree_structures, num_nodes, start):
         trees = deepcopy(tree_structures[num_nodes])
-        for tree in trees:
-            self.visit(tree, start)
+        if start > 1:
+            for tree in trees:
+                self.visit(tree, start)
         return trees
 
     # visit each node and update values
@@ -102,6 +74,29 @@ class UniqueBinarySearchTree:
     def generate_trees_pythonic(self, n):
         nodes = map(TreeNode, range(1, n + 1))
         return map(deepcopy, self.build(nodes))
+    
+    # Test on LeetCode - 96ms
+    # problem - too deep recursion depth
+    def generate_trees_recursive(self, n):
+        return self.generate_trees(1, n)
+
+    def generate_trees(self, start, end):
+        trees = []
+        if start == end:
+            trees.append(TreeNode(start))
+        elif start > end:
+            trees.append(None)
+        else:
+            for i in range(start, end+1):
+                left_children = self.generate_trees(start, i-1)
+                right_children = self.generate_trees(i+1, end)
+                for m in range(0, len(left_children)):
+                    for n in range(0, len(right_children)):
+                        root = TreeNode(i)
+                        root.left = left_children[m]
+                        root.right = right_children[n]
+                        trees.append(root)
+        return trees
 
 
 # Definition for a binary tree node.
@@ -114,7 +109,7 @@ class TreeNode:
 
 def main():
     test = UniqueBinarySearchTree()
-    print test.generate_trees(5)
+    print test.generate_trees_dj(3)
 
 
 if __name__ == '__main__':
