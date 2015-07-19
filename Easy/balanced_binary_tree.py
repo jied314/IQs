@@ -7,6 +7,9 @@ class TreeNode:
 
 # 7/15 - Tree, DFS
 # Given a binary tree, determine if it is height-balanced.
+#
+# Similar to Maximum Depth Binary Tree, except that you need to track the balance info
+# Basically have to calculate depth and balance info at the same time.
 # Note:
 #   use a global variable to track balance info (cannot do in Python)
 #   instead of returning two values
