@@ -35,6 +35,30 @@ class FindMinInRotatedSortedArray:
                 return nums[r]
         return nums[l]
 
+    # less condition check within while loop (not necessarily faster)
+    def find_min_bs1(self, nums):
+        l = 0
+        r = len(nums) - 1
+        while l < r:
+            m = l + (r - l) / 2
+            if nums[m] > nums[l]:  # min is [m + 1, r]
+                l = m + 1
+            else:  # nums[m] < nums[l], min is [l, m]
+                r = m
+        return nums[r]
+
+    # compare with nums[r] instead of nums[l] as used in find_min_bs1
+    # either way produces the same result (binary search)
+    def find_min_bs2(self, nums):
+        l = 0
+        r = len(nums) - 1
+        while l < r:
+            m = l + (r - l) / 2
+            if nums[m] > nums[r]:  # min is [m + 1, r]
+                l = m + 1
+            else:  # nums[m] < nums[l], min is [l, m]
+                r = m
+        return nums[l]
 
 def main():
     test = FindMinInRotatedSortedArray()
