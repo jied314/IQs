@@ -1,5 +1,7 @@
 # 7/3 - Array, Binary Search
-
+# Note:
+#   1. associate sorted array with binary search
+#   2. nums[l] > nums[r] - property of rotated array
 class FindMinInRotatedSortedArray:
     # @param {integer[]} nums
     # @return {integer}
@@ -20,7 +22,7 @@ class FindMinInRotatedSortedArray:
         return min
 
     # Test on LeetCode - 52ms
-    def find_min_nice(self, nums):
+    def find_min_bs(self, nums):
         l = 0
         r = len(nums) - 1
         while nums[l] > nums[r]:
@@ -36,8 +38,8 @@ class FindMinInRotatedSortedArray:
 
 def main():
     test = FindMinInRotatedSortedArray()
-    print test.find_min_nice([4,5,6,7,0,1,2])
-    print test.find_min_nice([4,1,2])
+    print test.find_min_bs([4,5,6,7,0,1,2])
+    print test.find_min_bs([4,1,2])
     print test.find_min([3,2,1,7,6,5,4])
 
 if __name__ == '__main__':
