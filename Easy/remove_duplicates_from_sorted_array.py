@@ -1,0 +1,39 @@
+# 8/4 - Array, Two Pointers
+# Given a sorted array, remove the duplicates in place such that each element appear only once and return the new length.
+# Do not allocate extra space for another array, you must do this in place with constant memory.
+#
+class RemoveDuplicatesFromSortedArray:
+    # @param {integer[]} nums
+    # @return {integer}
+    # Test on LeetCode - 92ms
+    def remove_duplicates_swap(self, nums):
+        if nums is None or len(nums) < 2:
+            return len(nums)
+        i, j = 0, 1
+        while j < len(nums):
+            if nums[i] < nums[j]:
+                # swap if necessary
+                if nums[i+1] <= nums[i]:  # swap
+                    nums[i+1], nums[j] = nums[j], nums[i+1]
+                i += 1
+            j += 1
+        return i+1
+
+    # # Test on LeetCode - 104ms
+    def remove_duplicates_change_value(self, nums):
+        if nums is None or len(nums) < 2:
+            return len(nums)
+        i = 0
+        for j in range(1, len(nums)):
+            if nums[i] != nums[j]:
+                i += 1
+                nums[i] = nums[j]
+        return i + 1
+
+def main():
+    test = RemoveDuplicatesFromSortedArray()
+    print test.remove_duplicates_change_value([1,2])
+    print test.remove_duplicates_change_value([1,1,1,2,2])
+
+if __name__ == '__main__':
+    main()
