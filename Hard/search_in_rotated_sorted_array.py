@@ -14,7 +14,7 @@ class SearchInRotatedSortedArray:
 
     # Test on LeetCode - 44ms
     # do bs based on different situations
-    def search(self, nums, target):
+    def search_l(self, nums, target):
         l = 0
         r = len(nums) - 1
         while l <= r:
@@ -35,6 +35,33 @@ class SearchInRotatedSortedArray:
                     l = m + 1
                 else:
                     r = m - 1
+        return -1
+
+    # Test on LeetCode - 44ms
+    # do bs based on different situations
+    def search_r(self, nums, target):
+        l = 0
+        r = len(nums) - 1
+        while l <= r:
+            m = l + (r - l) / 2
+            if target == nums[m]:
+                return m
+            if target == nums[l]:
+                return l
+            if target == nums[r]:
+                return r
+            if nums[m] > nums[r]:  # pivot [m+1, r]
+                if nums[m] > target > nums[r]:
+                    r = m - 1
+                else:
+                    l = m + 1
+            elif nums[m] < nums[r]:  # pivot [l, m]
+                if nums[r] > target > nums[m]:
+                    l = m + 1
+                else:
+                    r = m - 1
+            else:
+                return -1
         return -1
 
     # first find the min, then do regular binary search
@@ -59,10 +86,10 @@ class SearchInRotatedSortedArray:
         # the usual binary search and accounting for rotation.
         while l <= r:
             m = l + (r - l) / 2
-            realmid = (m + pivot) % n;
-            if nums[realmid] == target:
-                return realmid
-            if nums[realmid] < target:
+            real_mid = (m + pivot) % n;
+            if nums[real_mid] == target:
+                return real_mid
+            if nums[real_mid] < target:
                 l = m + 1
             else:
                 r = m - 1

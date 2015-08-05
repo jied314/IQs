@@ -1,4 +1,6 @@
-# 7/29 -
+# 7/29 - Array, Binary Search
+# Compare with FindMinInRotatedSortedArray - adjust l or r when nums[m] == nums[r]
+#
 class FindMinInRotatedSortedArray2:
     # @param {integer[]} nums
     # @return {integer}
@@ -23,7 +25,7 @@ class FindMinInRotatedSortedArray2:
                 return nums[r]
         return nums[l]
 
-    def find_min_nice(self, nums):
+    def find_min_nice_r(self, nums):
         l = 0
         r = len(nums) - 1
         while l < r:
@@ -35,6 +37,19 @@ class FindMinInRotatedSortedArray2:
             else:  # nums[m] == nums[r]
                 r -= 1
         return nums[l]
+
+    def find_min_nice_l(self, nums):
+        l = 0
+        r = len(nums) - 1
+        while l < r:
+            m = l + (r - l)/2
+            if nums[m] > nums[l]:  # min is [m + 1, r]
+                l = m + 1
+            elif nums[m] < nums[l]:  # min is [l, m]
+                r = m
+            else:  # nums[m] == nums[l]
+                l += 1
+        return nums[r]
 
 def main():
     test = FindMinInRotatedSortedArray2()
