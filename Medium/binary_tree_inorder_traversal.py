@@ -13,15 +13,13 @@ class InorderTraversal:
     # Test on LeetCode - 56ms
     def inorder_traversal_recursive(self, root):
         order = []
-        if root is not None:
-            self.visit(root, order)
+        self.visit(root, order)
         return order
 
     def visit(self, node, order):
-        if node.left is not None:
+        if node is not None:
             self.visit(node.left, order)
-        order.append(node.val)
-        if node.right is not None:
+            order.append(node.val)
             self.visit(node.right, order)
 
     # Test on LeetCode - 52ms
@@ -77,7 +75,6 @@ class InorderTraversal:
     #              a) Make current as right child of the rightmost node in current's left subtree
     #              b) Go to this left child, i.e., current = current->left
     # Memory O(1), Time O(NlgN)
-    # Drawback - modify tree structure
     def inorder_traversal_morris(self, root):
         order = []
         node = root
@@ -90,10 +87,10 @@ class InorderTraversal:
                 pre = node.left
                 while pre.right is not None and pre.right != node:
                     pre = pre.right
-                if pre.right is None:  # not point to node
+                if pre.right is None:  # not point to node, predecessor points to node
                     pre.right = node
                     node = node.left
-                else:  # already point to node
+                else:  # already point to node, remove pointer between predecessor to node
                     pre.right = None
                     order.append(node.val)
                     node = node.right

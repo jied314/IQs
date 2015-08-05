@@ -1,4 +1,9 @@
 # 6/29 - Tree, Stack
+# Note:
+#   1. Recursive is the easiest. O(n) Time Complexity and Memory Complexity
+#   2. Iterative - Stack V.S. Insert to the beginning (Same Idea, but different time complexity). I think it is due
+#                  to how data structure is implemented. Stack - pop V.S. List - insert(0)
+#   3. Morris - O(1) Memory Complexity, but O(nlgn) Time Complexity
 #
 # Definition for a binary tree node.
 # class TreeNode:
@@ -17,16 +22,17 @@ class PreorderTraversal:
         return order
 
     def visit(self, node, order):
-        if node:
+        if node is not None:
             order.append(node.val)
             self.visit(node.left, order)
             self.visit(node.right, order)
 
     # Test on LeetCode - 48ms
+    # similar idea as using stack, except faster (maybe due to less list traverse)
     # Note - exhaust the left child before visiting the right child
     def preorder_traversal_iterative(self, root):
         order = []
-        if root:
+        if root is not None:
             visit = [root]
             while visit:
                 node = visit.pop(0)
@@ -40,7 +46,7 @@ class PreorderTraversal:
     # Test on LeetCode - 67ms, using stack
     def preorder_traversal_iterative_stack(self, root):
         order = []
-        if root:
+        if root is not None:
             visit = [root]
             while visit:
                 node = visit.pop()
@@ -52,7 +58,7 @@ class PreorderTraversal:
         return order
 
     # Test on LeetCode - 60ms
-    # slightly different from inorder_tracersal
+    # slightly different from inorder_traversal
     def preorder_traversal_morris(self, root):
         order = []
         node = root
