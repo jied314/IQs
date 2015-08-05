@@ -1,3 +1,7 @@
+# 8/4 - Tree, Stack
+# Compare with Preorder & Inorder (See OneNone)
+# Note: Iterative & one stack
+#
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -45,4 +49,19 @@ class PostorderTraversal:
                         visited.append(top)
                         if top.left is not None:
                             visited.append(top.left)
+        return order
+
+    # Test on LeetCode - 44ms
+    # Manipulate the output
+    def postorder_traversal_iterative_one_stack(self, root):
+        order = []
+        if root is not None:
+            visited = [root]
+            while visited:
+                node = visited.pop()
+                order.insert(0, node.val)
+                if node.left is not None:
+                    visited.append(node.left)
+                if node.right is not None:
+                    visited.append(node.right)
         return order
