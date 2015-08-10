@@ -3,7 +3,8 @@
 # If you were only permitted to complete at most one transaction (ie, buy one and sell 
 # one share of the stock), design an algorithm to find the maximum profit.
 # Note:
-# record min, keep the one with the highest profit
+#   record min, keep the one with the highest profit
+#
 class BestTimeToBuyAndSellStock:
     # @param {integer[]} prices
     # @return {integer}
@@ -35,6 +36,8 @@ class BestTimeToBuyAndSellStock:
             return max(result1, result2)
 
     # Test on LeetCode - 60ms, Time Complexity - O(N)
+    # Idea: record min_so_far and max_so_far (including indexes), compare along the way
+    #       not very good due to max in not necessary
     def max_profit_dp(self, prices):
         result = 0
         if prices and len(prices) > 1:
@@ -69,8 +72,9 @@ class BestTimeToBuyAndSellStock:
         return result
 
     # Test on LeetCode - 48ms
+    # keep track of min and result
     def max_profit_dp_nice(self, prices):
-        max, result = 0, 0
+        result = 0
         if len(prices) > 1:
             min = prices[0]
             for i in range(1, len(prices)):
