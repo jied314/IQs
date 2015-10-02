@@ -11,6 +11,7 @@
 #   1. use XOR to find the two numbers XOR result
 #   2. since the two numbers are distinct, there must be one bit set to 1 in the XOR result.
 #      find one set bit and use it to differentiate from the two numbers
+#      can use n & -n to retrieve the last set bit
 
 class Solution(object):
     # Test on LeetCode - 44ms
