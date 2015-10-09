@@ -37,7 +37,6 @@ class HouseRobbery:
         return result[len(result) - 1]
 
 
-
 def main():
     test = HouseRobbery()
     print test.rob_memory([4, 2, 3, 2])
