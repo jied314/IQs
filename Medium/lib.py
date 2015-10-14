@@ -53,7 +53,6 @@ def dfs(root, result):
 def main():
     a1 = [1,-2,-3,1,3,-2,None,-1]
     r1 = read_tree(a1)
-    print 1
 
 
 if __name__ == '__main__':
