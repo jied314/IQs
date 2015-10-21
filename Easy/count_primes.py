@@ -1,7 +1,7 @@
 import math
 import time
 
-# 7/16 (Revisit) - HashTable, Math
+# 7/16 (Revisit) - HashTable, Math (E)
 # Count the number of prime numbers less than a non-negative number, n.
 # Solutions:
 #   1. count up to square root O(nlgn)
@@ -40,12 +40,12 @@ class CountPrimes:
 
     # Test on LeetCode - 1376ms
     def count_primes_sieve(self, n):
-        flags = [True for i in range(0, n+1)]
+        flags = [True for i in range(0, n+1)]  # used to mark whether not visited
         sqrt = int(math.sqrt(n))
         for i in range(2, sqrt+1):
             if flags[i]:
                 sqr = i * i  # note: from i*i to n since smaller numbers have been marked
-                times = (n - sqr) / i
+                times = (n - sqr) / i  # more efficient to count num of visits before the for loop
                 for j in range(0, times+1):
                     flags[sqr + j * i] = False
         count = 0

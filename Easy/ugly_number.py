@@ -24,6 +24,12 @@ def main():
     test = UglyNumber()
     print test.is_ugly(3)
     print test.is_ugly(14)
+    lst = []
+    for i in range(65, 128):
+        if test.is_ugly(i):
+            lst.append(i)
+    print len(lst)
+    print lst
 
 
 if __name__ == '__main__':
