@@ -6,8 +6,13 @@ class TreeNode:
         self.right = None
 
 
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
 # read tree's serialized interpretation
-def read_tree(array):
+def build_tree(array):
     root = TreeNode(array[0])
     parents = [root]
     index, length = 1, len(array)
@@ -50,9 +55,33 @@ def dfs(root, result):
         dfs(node.right, result)
 
 
+def build_ll(array):
+    if array is None:
+        return None
+    dummy_head = ListNode(0)
+    pre = dummy_head
+    for e in array:
+        pre.next = ListNode(e)
+        pre = pre.next
+    return dummy_head.next
+
+def traverse_ll(head):
+    ret = []
+    if head is None:
+        return ret
+    node = head
+    while node is not None:
+        ret.append(node.val)
+        node = node.next
+    return ret
+
+
 def main():
     a1 = [1,-2,-3,1,3,-2,None,-1]
-    r1 = read_tree(a1)
+    r1 = build_tree(a1)
+    a2 = [3,2,1]
+    l1 = build_ll(a2)
+    print traverse_ll(l1)
 
 
 if __name__ == '__main__':
