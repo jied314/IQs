@@ -1,5 +1,10 @@
 # 7/30 - Data Structure, Trie
+# Implement a trie with insert, search, and startsWith methods.
+# Note:
+#   You may assume that all inputs are consist of lowercase letters a-z.
 # Test on LeetCode - 388ms
+
+
 class TrieNode:
     # Initialize your data structure here.
     def __init__(self):
@@ -8,7 +13,6 @@ class TrieNode:
 
 
 class Trie:
-
     def __init__(self):
         self.root = TrieNode()
 
@@ -47,7 +51,7 @@ class Trie:
     # @return {boolean}
     # Returns if there is any word in the trie
     # that starts with the given prefix.
-    def startsWith(self, prefix):
+    def starts_with(self, prefix):
         node = self.find_position(prefix)
         if node is not None:
             return True
