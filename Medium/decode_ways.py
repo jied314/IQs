@@ -53,6 +53,24 @@ class DecodeWays(object):
             return True
         return False
 
+    # Test on LeetCode - 44ms
+    # Backward, avoid condition checking
+    def num_decodings_backward(self, s):
+        if s is None or len(s) == 0:
+            return 0
+
+        length = len(s)
+        dp = [0] * (length + 1)
+        dp[length] = 1
+
+        for i in range(length, -1, -1):
+            if s[i] == '0':
+                continue
+            dp[i] = dp[i+1]
+            if i < length-1 and (s[i] == '1' or (s[i] == '2' and s[i+1] < '7')):
+                dp[i] += dp[i+2]
+        return dp[0]
+
 
 test = DecodeWays()
 print test.num_decodings('101')
