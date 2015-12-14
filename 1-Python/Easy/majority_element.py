@@ -22,7 +22,7 @@ class MajorityElement:
 
     # sort the list, the n/2th element must be the majority element - Running Time: O(nlgn)
     def majority_element_sort(self, nums):
-        nums.reverse()
+        nums.sort()
         return nums[len(nums) / 2]
 
     # Test on LeetCode - 52ms
