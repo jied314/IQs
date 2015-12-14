@@ -1,5 +1,9 @@
-/**
- * Created by jie on 12/14/15.
- */
+/* Definition for a binary tree node. */
 public class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x) {
+        val = x;
+    }
 }
