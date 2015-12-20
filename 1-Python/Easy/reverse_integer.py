@@ -1,4 +1,3 @@
-import sys
 class ReverseInteger:
     # @param {integer} x
     # @return {integer}
