@@ -25,7 +25,7 @@ class FindMinInRotatedSortedArray:
         return result
 
     # Test on LeetCode - 48ms
-    # compare to nums[l]; also if equal, return immediately
+    # compare to nums[l]
     def find_min_comparison_left1(self, nums):
         l = 0
         r = len(nums) - 1

@@ -53,10 +53,33 @@ class Permutations:
 
         return result
 
+    # Test On LeetCode - 76ms
+    # Idea:
+    #   start from T(n-1), insert into 0...length position
+    #   [] -> [1] -> [2, 1] -> [3, 2, 1], [2, 3, 1], [2, 1, 3]
+    #                [1, 2] -> [3, 1, 2], [1, 3, 2], [1, 2, 3]
+    # Note:
+    #   use python list +. e.g. [1] + [2] = [1, 2]
+    def permute_try(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        ret = [[]]
+        length = len(nums)
+        for i in range(0, length):
+            num = nums[i]
+            ret_length = len(ret)
+            element_length = len(ret[0])
+            for j in range(0, ret_length):
+                e = ret.pop(0)
+                for k in range(0, element_length+1):
+                    ret.append(e[0:k] + [num] + e[k:])
+        return ret
 
 def main():
     test = Permutations()
-    print len(test.permute_fast([1,2,3]))
+    print len(test.permute_nice([1,2,3]))
 
 
 if __name__ == '__main__':

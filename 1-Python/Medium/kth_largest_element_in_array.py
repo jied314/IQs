@@ -4,6 +4,8 @@
 # For example,
 #   Given [3,2,1,5,6,4] and k = 2, return 5.
 #
+# 12/26 - Revisit
+#   Use quick sort. remember the division of smallers and largers, and swap with pivot. -> reduce shifting.
 class KthLargestElementInArray(object):
     # Test on LeetCode - 52ms
     # Idea: use quick sort

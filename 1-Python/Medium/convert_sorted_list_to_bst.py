@@ -50,3 +50,41 @@ class ConvertSortedListToBST(object):
         else:
             return None
 
+    # 12/26 - Revisit
+    # In each recursive call, traverse half of the list's length to find the middle element.
+    # Time Complexity - O(N lg N), N - list length
+    # At each level of recursive call, it requires a total of N/2 traversal steps in the list,
+    # and there are a total of lg N number of levels (ie, the height of the balanced tree).
+    def sorted_list_to_BST_NLGN(self, head):
+        """
+        :type head: ListNode
+        :rtype: TreeNode
+        """
+        if head is None:
+            return head
+        if head.next is None:
+            return TreeNode(head.val)
+        dummy = ListNode(-1)
+        dummy.next = head
+        fast, slow = dummy, dummy
+        while fast.next is not None and fast.next.next is not None:
+            fast = fast.next.next
+            slow = slow.next
+        root = slow.next
+        root_node = TreeNode(root.val)
+        slow.next = None
+        root_node.left = self.sorted_list_to_BST_NLGN(head)
+        root_node.right = self.sorted_list_to_BST_NLGN(root.next)
+        return root_node
+
+one = ListNode(1)
+two = ListNode(2)
+three = ListNode(3)
+four = ListNode(4)
+five = ListNode(5)
+one.next = two
+two.next = three
+three.next = four
+four.next = five
+test = ConvertSortedListToBST()
+test.sorted_list_to_BST(one)

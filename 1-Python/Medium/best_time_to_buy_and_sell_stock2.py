@@ -34,7 +34,5 @@ class BestTimeToBuyAndSellStock2:
                 if prices[i] < prices[i - 1]:  # price drops
                     profit += sell - buy
                     buy = prices[i]
-                    sell = prices[i]
-                else:
-                    sell = prices[i]
+                sell = prices[i]
         return profit

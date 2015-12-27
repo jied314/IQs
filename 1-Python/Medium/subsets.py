@@ -18,7 +18,7 @@ class Subsets:
     # Time Complexity - O()
     def subsets_backtracking(self, nums):
         Subsets.result = []
-        nums.reverse()
+        nums.sort()
         length = len(nums)
         self.visit([], 0, nums, length)
         return Subsets.result
@@ -38,7 +38,7 @@ class Subsets:
     # can also be viewed as dynamic programming
     def subsets_iterative(self, nums):
         Subsets.result = [[]]
-        nums.reverse()
+        nums.sort()
         for n in nums:
             result = Subsets.result
             length = len(result)
@@ -49,9 +49,10 @@ class Subsets:
         return Subsets.result
 
     # Test on LeetCode - 68ms
+    # Because 2**N subsets, can be chosen based on bit patterns.
     def subsets_bit1(self, nums):
         Subsets.result = []
-        nums.reverse()
+        nums.sort()
         length = len(nums)
         total = 1 << length
         for n in range(0, total):
@@ -65,7 +66,7 @@ class Subsets:
     # Test on LeetCode - 60ms (faster than 1)
     # insert only if the nth bit is set, less bit shifting
     def subsets_bit2(self, nums):
-        nums.reverse()
+        nums.sort()
         length = len(nums)
         total = 1 << length
         Subsets.result = [[] for n in range(0, total)]
@@ -75,8 +76,11 @@ class Subsets:
                     Subsets.result[n].append(nums[i])
         return Subsets.result
 
+
 def main():
     test = Subsets()
+    print test.subsets_bit1([1,2])
+    print test.subsets_backtracking([1,2,3])
     print test.subsets_iterative([1,2,3])
 
 

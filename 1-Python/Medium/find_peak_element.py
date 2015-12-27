@@ -58,8 +58,8 @@ class FindPeakElement:
         return low
 
 def main():
-    test =  FindPeakElement()
-    print test.find_peak_element_sequential([1,2,3,1])
+    test = FindPeakElement()
+    print test.find_peak_element_binary_search_iterative([1,2,3,4,5])
 
 
 if __name__ == '__main__':

@@ -73,7 +73,7 @@ class InorderTraversal:
     #              b) Go to the right, i.e., current = current->right
     #          Else
     #              a) Make current as right child of the rightmost node in current's left subtree
-    #              b) Go to this left child, i.e., current = current->left
+    #              b) Go to the left child, i.e., current = current->left
     # Memory O(1), Time O(NlgN)
     def inorder_traversal_morris(self, root):
         order = []

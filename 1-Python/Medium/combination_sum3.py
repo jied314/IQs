@@ -67,6 +67,38 @@ class CombinationSum3:
     def is_success(self, k, node):
         return node.left == 0 and len(node.nums) == k
 
+    # Test on LeetCode - 40ms
+    # revisit 12/24
+    # Idea:
+    #   make sure every trial is correct, not need to discard
+    #   set boundary - start <= i <= min(9, n/k)
+    #   pick i from small to large. the biggest i cannot be greater then n/k
+    #   e.g. k = 2, n = 5. i = 1, 2
+    def combination_sum3_revisit(self, k, n):
+        """
+        :type k: int
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        return self.helper(k, n, 1)
+
+    def helper(self, k, n, start):
+        ret = []
+        if k == 1:
+            if start <= n <= 9:
+                return [[n]]
+            else:
+                return None
+        for i in range(start, min(9, n/k)+1):
+            if n-i > i:
+                rest = self.helper(k-1, n-i, i+1)
+                if rest is not None:
+                    for e in rest:
+                        e.insert(0, i)
+                    ret.extend(rest)
+        return ret
+
+
 # each node contains the following information:
 # nums - the numbers included
 # left - difference to make up n

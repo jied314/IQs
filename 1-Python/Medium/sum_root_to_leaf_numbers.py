@@ -32,3 +32,25 @@ class SumRootToLeafNumbers:
                        self.traverse_sum_no_change(node.right, 10 * parent_val + node.val)
         else:
             return 0
+
+    # 12/25 - Revisit
+    # Test on LeetCode - 44ms
+    # DFS - only leaf nodes count
+    # if leaf nodes, add to total_sum.
+    total_sum = 0
+    def sum_numbers_revisit(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.helper(root, 0)
+        return self.total_sum
+
+    def helper(self, node, sum):
+        if node is None:
+            return
+        sum = sum * 10 + node.val
+        if node.left is None and node.right is None:
+            self.total_sum += sum
+        self.helper(node.left, sum)
+        self.helper(node.right, sum)

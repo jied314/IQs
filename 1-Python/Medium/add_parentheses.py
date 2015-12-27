@@ -133,6 +133,60 @@ class AddParentheses(object):
         dp_map[input] = ret
         return ret
 
+    # 12/25 - revisit
+    # Test on LeetCode - 64ms
+    # Idea:
+    #   T(N) = T(1) & T(N-1), T(2) & T(N-2), ... T(N-1) & T(1)
+    #   2-1-1 = (2 - (1-1)), ((2-1) - 1)
+    # Note: no need to use operators and operands
+    #       parse string along the way
+    def diff_ways_to_compute_revisit(self, input):
+        """
+        :type input: str
+        :rtype: List[int]
+        """
+        operators = []
+        operands = []
+        length = len(input)
+        i = 0; j = 0
+        while i + j < length:
+            if self.is_operator(input[i+j]):
+                operands.append(int(input[i:i+j]))
+                operators.append(input[i+j])
+                i = i + j + 1
+                j = 0
+            else:
+                j += 1
+        operands.append(int(input[i: i+j]))
+
+        num_opd = len(operands)
+        return self.helper(operands, operators, 0, num_opd-1)
+
+    def is_operator(self, str):
+        return str == '+' or str == '-' or str == '*'
+
+    def helper(self, operands, operators, start, end):
+        if start == end:
+            return [operands[start]]
+        if start + 1 == end:
+            return [self.compute(operands[start], operands[end], operators[start])]
+        ret = []
+        for i in range(start, end):
+            left = self.helper(operands, operators, start, i)
+            right = self.helper(operands, operators, i+1, end)
+            for l in left:
+                for r in right:
+                    ret.append(self.compute(l, r, operators[i]))
+        return ret
+
+    def compute(self, opd1, opd2, opr):
+        if opr == '+':
+            return opd1 + opd2
+        elif opr == '-':
+            return opd1 - opd2
+        else:
+            return opd1 * opd2
+
 def main():
     test = AddParentheses()
     expr1 = "2-1-1"

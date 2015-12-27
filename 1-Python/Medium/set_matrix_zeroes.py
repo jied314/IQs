@@ -5,6 +5,7 @@ class SetMatrixZero:
 
     # Test on LeetCode 204ms
     # Memory - O(m+n)
+    # Idea: record 0 columns and rows
     def set_zeroes(self, matrix):
         if matrix:
             columns, rows = set(), set()
@@ -79,3 +80,4 @@ class SetMatrixZero:
                         matrix[i][j] = 0
                 if col0:
                     matrix[i][0] = 0
+

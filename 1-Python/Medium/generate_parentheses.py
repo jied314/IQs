@@ -16,10 +16,11 @@ class GenerateParentheses:
         if m == 0 and n == 0:
             result.append(str)
             return
-        if m > 0:
-            self.add_parenthesis(result, str + ')', n, m-1)
         if n > 0:
             self.add_parenthesis(result, str + '(', n-1, m+1)
+        if m > 0:
+            self.add_parenthesis(result, str + ')', n, m-1)
+
 
     # Test on LeetCode - 52ms
     def generate_parenthesis_dp(self, n):
@@ -57,7 +58,7 @@ class GenerateParentheses:
 
 def main():
     test = GenerateParentheses()
-    #print test.generate_parenthesis_recursive(4)
+    print test.generate_parenthesis_recursive(4)
     print test.generate_parenthesis_dp(4)
 
 

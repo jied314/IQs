@@ -103,7 +103,50 @@ class LongestIncreasingSubsequence(object):
                 tails[self.find_insert_position(nums[i], 0, len(tails)-1, tails)] = nums[i]
         return len(tails)
 
+    # 12/24 - Revisit
+    # Test on LeetCode - 1024ms
+    # Idea:
+    #   record max_length_so_far for each array element, and sort visited elements.
+    #   for each new element, bs search for insertion position, and find max before that element.
+    #   Not so good Time Complexity
+    def lengthOfLIS(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if nums is None or len(nums) == 0:
+            return 0
+        length = len(nums)
+        dp = [nums[0]]
+        dict = {nums[0]: 1}
+        max_length = 1
+        for i in range(1, length):
+            position = self.bs(dp, nums[i])
+            dp.insert(position, nums[i])
+            cur_length = self.find_max(dp, dict, position) + 1
+            dict[dp[position]] = cur_length
+            max_length = max(max_length, cur_length)
+        return max_length
 
+    # bs for insertion point. if duplicates, find the first position.
+    def bs(self, array, target):
+        low, high = 0, len(array)-1
+        while low <= high:
+            mid = low + (high - low) / 2
+            if target < array[mid]:
+                high = mid - 1
+            else:
+                low = mid + 1
+        while 0 < low and array[low-1] == target:
+            low -= 1
+        return low
+
+    # find max_length_so_far for elements ranging from index = 0...position
+    def find_max(self, array, dict, position):
+        max_so_far = 0
+        for i in range(0, position):
+            max_so_far = max(max_so_far, dict[array[i]])
+        return max_so_far
 
 def main():
     test = LongestIncreasingSubsequence()

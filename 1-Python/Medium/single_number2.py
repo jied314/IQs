@@ -48,6 +48,28 @@ class SingleNumber2:
             result = (result + 1) * -1
         return result
 
+    # Use Bit Manipulation, Test on LeetCode - 120ms
+    def single_number_bit_revisit(self, nums):
+        bit_count = [0] * 32
+        for i in range(0, 32):
+            for num in nums:
+                bit_count[i] += (num >> i) & 1
+            bit_count[i] %= 3
+            
+        flag = False
+        if bit_count[-1] == 1:
+            flag = True
+            for i in range(0, 32):
+                bit_count[i] = 1 - bit_count[i]
+        
+        result = 0
+        for i in range(0, 32):
+            result += bit_count[i] << i
+        if flag:
+            result = (result + 1) * -1
+        return result
+        
+
     # Java Version produces correct result due to integer range
     # in Python, integer have no true range, since they are only limited to available memory
     def single_number_bit_nice(self, nums):

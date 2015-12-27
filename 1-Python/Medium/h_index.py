@@ -61,6 +61,22 @@ class H_INDEX(object):
                 return i
         return 0
 
+    # Revisit - 12/24
+    # Test on LeetCode - 48ms
+    # Note: hIndex is restricted by len(citations)
+    def hIndex(self, citations):
+        """
+        :type citations: List[int]
+        :rtype: int
+        """
+        if citations is None or len(citations) == 0:
+            return 0
+        length = len(citations)
+        citations.sort()
+        for i in range(length, 0, -1):
+            if citations[length-i] >= i:
+                return i
+        return 0
 
 
 def main():
@@ -68,7 +84,7 @@ def main():
     l2 = [0, 1, 3, 3, 3, 4, 4, 5, 5, 5, 5, 6]
     l3 = [11, 15]
     test = H_INDEX()
-    print test.h_index_sort(l1)
+    print test.h_index_memory(l1)
     print test.h_index_sort(l2)
     print test.h_index_sort([2, 2, 2])
     print test.h_index_sort(l3)

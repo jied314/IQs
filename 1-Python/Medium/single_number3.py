@@ -27,9 +27,9 @@ class Solution(object):
         diff = result & -result
         result = [0, 0]
         for num in nums:
-            if diff & num == 0:
+            if diff & num == 0:  # the bit is not set
                 result[0] ^= num
             else:
-                result[1] ^= num
+                result[1] ^= num  # the bit is set
         return result
 

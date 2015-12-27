@@ -26,6 +26,7 @@ class UglyNumber2(object):
     #   U(k+1) = Min(L1*2, L2*3, L3*5)
     #   keep three pointers into the visiting number for 2, 3, 5
     # Time Complexity O(N), Space Complexity O(N)
+    # i2, i3, i5 used to record the min index that hasn't multiply yet
     def nth_ugly_number_dp(self, n):
         ugly = [1]
         i2, i3, i5 = 0, 0, 0

@@ -62,3 +62,22 @@ class PopulatingNextRightPointers:
             self.visit(node.left)
             self.visit(node.right)
 
+    # Test on LeetCode - 92ms
+    # use None as flag to signal finish one level
+    def connect_queue(self, root):
+        """
+        :type root: TreeLinkNode
+        :rtype: nothing
+        """
+        if root is not None:
+            nodes = [root, None]
+            while len(nodes) > 1:
+                node = nodes.pop(0)
+                if node is not None:
+                    node.next = nodes[0]
+                    if node.left is not None:
+                        nodes.append(node.left)
+                        nodes.append(node.right)
+                else:
+                    nodes.append(node)
+

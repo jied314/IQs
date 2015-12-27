@@ -11,13 +11,13 @@
 # of them but not the other.
 #   Let's say we visited aol but not aor. When a pointer stops at a_ol, it won't move until:
 #   1. The other pointer also points to aol.
-#   In this case, iteration ends. But the other pointer must have visited aor on its way from right end to aol.
-# Contradiction to our assumption that we didn't visit aor.
+#       In this case, iteration ends. But the other pointer must have visited aor on its way from right end to aol.
+#   Contradiction to our assumption that we didn't visit aor.
 #
 #   2. The other pointer arrives at a value, say arr, that is greater than aol before it reaches aor.
-#   In this case, we does move aol. But notice that the volume of aol and arr is already greater than
-# aol and aor (as it is wider and heigher), which means that aol and aor is not the optimal solution -- Contradiction!
-# Both cases arrive at a contradiction.
+#       In this case, we does move aol. But notice that the volume of aol and arr is already greater than
+#   aol and aor (as it is wider and higher), which means that aol and aor is not the optimal solution -- Contradiction!
+#   Both cases arrive at a contradiction.
 class ContainerWithMostWater:
     # @param {integer[]} height
     # @return {integer}
@@ -49,7 +49,7 @@ class ContainerWithMostWater:
 
 def main():
     test = ContainerWithMostWater()
-    print test.max_area([3, 1, 5, 2])
+    print test.max_area_two_pointers([3, 1, 5, 2])
 
 
 if __name__ == '__main__':

@@ -86,7 +86,7 @@ class SearchInRotatedSortedArray:
         # the usual binary search and accounting for rotation.
         while l <= r:
             m = l + (r - l) / 2
-            real_mid = (m + pivot) % n;
+            real_mid = (m + pivot) % n
             if nums[real_mid] == target:
                 return real_mid
             if nums[real_mid] < target:

@@ -73,7 +73,7 @@ class KthSmallestElementInBST:
     # slower - due to multiple counts
     def kth_smallest(self, root, k):
         num_l = self.count(root.left)
-        if num_l > k:
+        if num_l >= k:
             return self.kth_smallest(root.left, k)
         elif num_l + 1 < k:
             return self.kth_smallest(root.right, k-1-num_l)

@@ -22,7 +22,8 @@ class CombinationSum:
     # @param {integer} target
     # @return {integer[][]}
     def combination_sum_recursive(self, candidates, target):
-        candidates.reverse()
+        CombinationSum.result = []
+        candidates.sort()
         for i in range(0, len(candidates)):
             num = candidates[i]
             self.visit([num], num, i, candidates, target)
@@ -41,11 +42,71 @@ class CombinationSum:
                     self.visit(base, base_sum+num, i, candidates, target)
                     base.pop()  # avoid frequent deepcopy
 
+    def combination_sum_revisit(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        CombinationSum.result = []
+        candidates.sort()
+        if len(candidates) == 0 or target < candidates[0]:
+            return []
+        length = len(candidates)
+        self.helper([], candidates, 0, length-1, target)
+        return CombinationSum.result
+
+    def helper(self, base, candidates, start, end, target):
+        if target == 0:
+            CombinationSum.result.append(copy.deepcopy(base))
+            return
+        if start <= end:
+            for i in range(start, end+1):
+                num = candidates[i]
+                if target >= num:
+                    max_count = target / num
+                    base.extend([num] * max_count)
+                    for j in range(max_count, 0, -1):
+                        self.helper(base, candidates, i+1, end, target-(num * j))
+                        base.pop()
+                else:
+                    break
+
+    # 12/26 - Revisit
+    # DP - T(N) = candidate + T(N-candidate)
+    # Note: sift T(N-candidate) using if candidates[j] <= l[0]:
+    def combination_sum_dp(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        candidates.sort()
+        if len(candidates) == 0 or target < candidates[0]:
+            return []
+        length = len(candidates)
+        dp = [[[]]] * (target+1)
+        for i in range(1, target+1):
+            cur = []
+            for j in range(0, length):
+                num = candidates[j]
+                if num > i:
+                    break
+                if i == num:
+                    cur.append([i])
+                else:
+                    for l in dp[i - num]:
+                        if num <= l[0]:  # sift -> avoid duplicates
+                            cur.append([num] + l)
+            dp[i] = cur
+        return dp[target]
+
 
 def main():
     test = CombinationSum()
     print test.combination_sum_recursive([8,7,4,3], 11)
-
+    print test.combination_sum_revisit([8,7,4,3], 11)
+    print test.combination_sum_dp([8,7,4,3], 11)
 
 if __name__ == '__main__':
     main()

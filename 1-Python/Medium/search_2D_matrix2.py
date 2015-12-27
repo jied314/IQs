@@ -39,6 +39,22 @@ class Search2DMatrix2(object):
                 return True
         return False
 
+    # binary search
+    def bs(self, array, target):
+        return self.bs_helper(0, len(array)-1, array, target)
+
+    def bs_helper(self, low, high, array, target):
+        while low <= high:
+            mid = low + (high - low)/2
+            mid_val = array[mid]
+            if target == mid_val:
+                return True
+            elif target < mid_val:
+                high = mid - 1
+            else:
+                low = mid + 1
+        return False
+
     # # Test on LeetCode - 940ms
     # Idea:
     #   divide the search space into quadrants
@@ -73,22 +89,6 @@ class Search2DMatrix2(object):
             return self.search_matrix_helper(matrix, rm+1, r2, cm+1, c2, target) or \
                    self.search_matrix_helper(matrix, r1, rm, cm+1, c2, target) or \
                    self.search_matrix_helper(matrix, rm+1, r2, c1, cm, target)
-
-    # binary search
-    def bs(self, array, target):
-        return self.bs_helper(0, len(array)-1, array, target)
-
-    def bs_helper(self, low, high, array, target):
-        while low <= high:
-            mid = low + (high - low)/2
-            mid_val = array[mid]
-            if target == mid_val:
-                return True
-            elif target < mid_val:
-                high = mid - 1
-            else:
-                low = mid + 1
-        return False
 
 
 def main():

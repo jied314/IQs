@@ -39,6 +39,54 @@ class SpiralMatrix2:
                         j += 1
         return result
 
+    # 12/23 - Revisit
+    # Idea:
+    #   determine directions and then move
+    #   note the edge cases
+    def generate_matrix_revisit(self, n):
+        """
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        ret = [[0 for i in range(0, n)] for j in range(0, n)]
+        num = 1
+        top, left, right, bottom = 0, 0, n-1, n-1
+        i, j = 0, 0
+        while num <= n * n:
+            if i == top and j == left:  # move right
+                while j <= right:
+                    ret[i][j] = num
+                    j += 1
+                    num += 1
+                i += 1
+                j -= 1  # need to adjust offset
+                top += 1
+            elif i == top and j == right:  # move down
+                while i <= bottom:
+                    ret[i][j] = num
+                    i += 1
+                    num += 1
+                j -= 1
+                i -= 1 # need to adjust offset
+                right -= 1
+            elif i == bottom and j == right:  # move left
+                while j >= left:
+                    ret[i][j] = num
+                    j -= 1
+                    num += 1
+                i -= 1
+                j += 1 # need to adjust offset
+                bottom -= 1
+            elif i == bottom and j == left:  # move up
+                while i >= top:
+                    ret[i][j] = num
+                    i -= 1
+                    num += 1
+                j += 1
+                i += 1 # need to adjust offset
+                left += 1
+        return ret
+
 
 def main():
     test = SpiralMatrix2()

@@ -57,6 +57,24 @@ class PerfectSquares(object):
                 self.dp[i] = min(self.dp[i], self.dp[i - j * j] + 1)
         return self.dp[n]
 
+    # 12/25 - revisit
+    # Similar idea, not as fast as dp1
+    # T(N) = min(T(1) + T(N-1), T(4) + T(N-4), ...
+    def num_squares_revisit(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        dp = [0, 1]
+        for i in range(2, n+1):
+            val = i
+            j = 2
+            while j * j <= i:
+                sqr = j * j
+                val = min(val, i / sqr + dp[i%sqr])
+                j += 1
+            dp.append(val)
+        return dp[-1]
 
 def main():
     test = PerfectSquares()
@@ -66,6 +84,8 @@ def main():
     print test.num_squares_dp2(13)
     print test.num_squares_static_dp(12)
     print test.num_squares_static_dp(13)
+    print test.num_squares_revisit(12)
+    print test.num_squares_revisit(13)
 
 
 if __name__ == '__main__':
