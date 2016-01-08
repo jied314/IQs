@@ -11,82 +11,40 @@ class TreeNode:
 class CountCompleteBinaryTree:
     # @param {TreeNode} root
     # @return {integer}
-    # Test on LeetCode - Time Limit Exceed (TLE)
-    def count_nodes(self, root):
-        count = 0
-        if root:
-            nodes = [root]
-            level = 1
-            children = []
-            flag = False
-            while True:
-                if level:
-                    if nodes[0].left.left is not None:
-                        level += 1
-                        for node in nodes:
-                            children.append(node.left)
-                            children.append(node.right)
-                    node = level.pop(0)
-                    count += 1
-                    if node.left is not None:
-                        children.append(node.left)
-                        if node.right is not None:
-                            children.append(node.right)
-                        else:
-                            flag = True
-                    else:
-                        flag = True
-                if flag:
-                    count += len(children)
-                    break
-                else:
-                    level = children
-                    children = []
-        return count
-
-
-    def left_height(self, root):
-        hl = 1
-        node = root
-        while node.left is not None:
-            hl += 1
-            node = node.left
-        return hl
-
-    def right_height(self, root):
-        hr = 1
-        node = root
-        while node.right is not None:
-            hr += 1
-            node = node.right
-        return hr
-
-    # # Test on LeetCode - Time Limit Exceed (TLE)
-    def count_nodes_second(self, root):
+    # 1/2 - Revisit
+    # Test on LeetCode - 180ms
+    # Idea:
+    #   check if full, else T(N) = T(N/2) * 2
+    #   Tme Complexity - O(N)
+    def count_nodes_revisit(self, root):
         if root is None:
             return 0
-        hl = self.left_height(root)
-        hr = self.right_height(root)
-        if hl == hr:
-            return (2 ** hl) - 1
+        left_height = self.get_left_height(root)
+        right_height = self.get_right_height(root)
+        if left_height == right_height:  # every level is full
+            return (1 << (left_height + 1)) - 1
         else:
-            count = (2 ** hr) - 1
-            nodes = [root]
-            children = []
-            for i in range(0, hr - 1):
-                for node in nodes:
-                    children.append(node.left)
-                    children.append(node.right)
-                nodes = children
-                children = []
-            for i in range(0, len(nodes)):
-                node = nodes[i]
-                if node.left is None:
-                    return count + 2 ** i
-                if node.right is None:
-                    return count + 2 ** i + 1
+            return 1 + self.count_nodes_revisit(root.left) + self.count_nodes_revisit(root.right)
 
-    # Test on LeetCode - 324ms, Time - O(lgn * lgn)
+    def get_left_height(self, node):
+        left_heigth = 0
+        while node.left is not None:
+            node = node.left
+            left_heigth += 1
+        return left_heigth
+
+    def get_right_height(self, node):
+        right_heigth = 0
+        while node.right is not None:
+            node = node.right
+            right_heigth += 1
+        return right_heigth
+
+    # Test on LeetCode - 324ms
+    # Time Complexity - O(lgn * lgn)
+    # Idea:
+    #   if left_height == right_height, left if full
+    #   else, right is full
     def count_nodes_efficient(self, root):
         if root is None:
             return 0

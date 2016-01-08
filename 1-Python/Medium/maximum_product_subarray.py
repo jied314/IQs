@@ -72,7 +72,7 @@ def main():
     print test.max_product_array([0, 2])
     print test.max_product_array([-2, 3, -4, 1])
     print test.max_product_array([3, -1, 4])
-    print test.max_product_array([2,-5,-2,-4,3])
+    print test.max_product([2,-5,-2,-4,3])
 
 
 if __name__ == '__main__':

@@ -24,21 +24,23 @@ class RepeatedDNASequences(object):
                 ret.append(sequence)
         return ret
 
+    # 1/2 - Revisit
+    # Test On LeetCode - 96ms
     # store seen DNA sequence into hash. if appear again, return.
-    # TLE - storing string is expensive => should be able to think of using some decoding or less memory expensive way
+    # storing string is expensive => should be able to think of using some decoding or less memory expensive way
     def find_repeated_dna_sequences_hash(self, s):
-        if s is None or len(s) < 21:
+        if s is None or len(s) < 11:
             return []
-        ret = []
-        seen_sequences = set()
-        length = len(s)
-        for i in range(0, length - 9):
-            sequence = s[i: i + 10]
-            if sequence in seen_sequences:
-                ret.append(sequence)
+
+        seen = set()
+        ret = set()  # avoid adding duplicates
+        for i in range(0, len(s) - 9):
+            sequence = s[i: i+10]
+            if sequence in seen:
+                ret.add(sequence)
             else:
-                seen_sequences.add(sequence)
-        return ret
+                seen.add(sequence)
+        return list(ret)
 
     # Test on LeetCode - 444ms
     # Idea:

@@ -14,6 +14,8 @@ from copy import deepcopy
 #       One thing to notice is that every time we push a TreeNode in our result, I push the clone version of the root,
 #       and I recover what I do to the old node immediately. This is because you may use the old tree for several times.
 #   2. DP:
+#       new_node.left = T(N-1)
+#       for each tree in T(N-1), temp = node.right, node.right = new_node, new_node.left = temp
 #       Can be helpful since reuse the previous results.
 #       However, problems are: deepcopy trees and adjust node val (which implicitly involves traverse the entire trees)
 #   3. Recursive without DP (actually faster 96ms V.S. 600ms)
@@ -22,6 +24,9 @@ class UniqueBinarySearchTree:
     # @return {TreeNode[]}
 
     # Test on LeetCode - 580ms
+    # Idea:
+    #   generate template tree structure, based on the number of nodes.
+    #   copy and change node value to suit.
     def generate_trees_dj(self, n):
         tree_structures = []
         tree_structures.append([None])

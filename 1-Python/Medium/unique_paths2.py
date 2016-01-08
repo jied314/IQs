@@ -60,6 +60,39 @@ class UniquePaths2(object):
                     obstacleGrid[i][j] = obstacleGrid[i][j-1] + obstacleGrid[i-1][j]
         return obstacleGrid[m-1][n-1]
 
+    # 12/27 - Revisit
+    # Test on LeetCode - 72ms
+    # Idea:
+    #   similar to Unique Paths solution
+    #   use row to store results of previous row
+    #   Edge cases:
+    #       grid[0][0] == 0; grid[0][j] == 0
+    def unique_paths_with_obstacles_revisit(self, obstacleGrid):
+        """
+        :type obstacleGrid: List[List[int]]
+        :rtype: int
+        """
+        if obstacleGrid is None or len(obstacleGrid[0]) == 0 or obstacleGrid[0][0] == 1:
+            return 0
+        m, n = len(obstacleGrid), len(obstacleGrid[0])
+        # init first row
+        row = [1] * n
+        for j in range(1, n):
+            if obstacleGrid[0][j] == 1:
+                row[j] = 0
+            else:
+                row[j] = row[j-1]
+        # pascal triangle with obstacles
+        for i in range(1, m):
+            if row[0] != 0 and obstacleGrid[i][0] == 1:
+                row[0] = 0
+            for j in range(1, n):
+                if obstacleGrid[i][j] == 1:
+                    row[j] = 0
+                else:
+                    row[j] += row[j-1]
+        return row[-1]
+
 
 def main():
     test = UniquePaths2()

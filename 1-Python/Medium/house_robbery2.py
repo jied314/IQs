@@ -33,6 +33,29 @@ class HouseRobbery2(object):
             cur = max(temp, cur)
         return cur
 
+    # 12/27 - Revisit
+    # Twice DP
+    def rob_revisit(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if nums is None or len(nums) == 0:
+            return 0
+        length = len(nums)
+        if length == 1:
+            return nums[0]
+
+        dp1 = [0] * length
+        dp1[1] = nums[0]
+        dp2 = [0] * length
+        dp2[1] = nums[1]
+
+        for i in range(1, length-1):
+            dp1[i+1] = max(dp1[i], dp1[i-1] + nums[i])
+            dp2[i+1] = max(dp2[i], dp2[i-1] + nums[i+1])
+        return max(dp1[-1], dp2[-1])
+
 
 def main():
     test = HouseRobbery2()

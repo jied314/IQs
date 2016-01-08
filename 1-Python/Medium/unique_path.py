@@ -54,8 +54,24 @@ class UniquePaths:
         else:
             return 1
 
+    # 12/22 - Revisit
+    # Use DP
+    # Only use O(N) memory
+    def unique_paths_revisit(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        matrix = [1] * n
+        for j in range(1, m):
+            for i in range(1, n):
+                matrix[i] += matrix[i-1]
+        return matrix[n-1]
+
 def main():
     test = UniquePaths()
+    print test.unique_paths(3, 4)
     print test.unique_paths_dp(3, 4)
 
 

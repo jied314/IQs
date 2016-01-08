@@ -71,17 +71,47 @@ class Solution(object):
         low, high, ans = 1, x, -1
         while low <= high:
             mid = low + (high - low) / 2
-            if mid <= x / mid:
+            if mid * mid <= x:
                 low = mid + 1
                 ans = mid
             else:
                 high = mid - 1
         return ans
 
+    def my_sqrt_bs_revisit(self, x):
+        if x == 0:
+            return 0
+        low, high, ans = 1, x, -1
+        while low <= high:
+            mid = low + (high - low) / 2
+            if mid * mid <= x < (mid+1) * (mid+1):
+                return mid
+            if mid * mid < x:
+                low = mid + 1
+            else:
+                high = mid - 1
+        return ans
+
+
+    def my_sqrt_bit(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        ans = 0
+        bit = 1 << 15  # max int sqrt
+        while bit > 0:
+            ans |= bit
+            if ans * ans > x:
+                ans ^= bit
+            bit >>= 1
+        return ans
+
 def main():
     test = Solution()
     print test.my_sqrt_dp(1)
     print test.my_sqrt_bs(1)
+    print test.my_sqrt_bit(7)
 
 
 if __name__ == "__main__":

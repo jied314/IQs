@@ -16,7 +16,7 @@ class Subsets2:
     # note in python, s[length-x:] == s[-x:]
     def subsets_with_dup(self, nums):
         Subsets2.result = [[]]
-        nums.sort()
+        nums.qsort()
         length = len(nums)
         if length == 0:
             return Subsets2.result
@@ -44,7 +44,7 @@ class Subsets2:
     #   e.g. nums = [1,2,2], new_nums = [[[1]], [[2], [2,2]]]
     def subset_with_dup2(self, nums):
         Subsets2.result = []
-        nums.sort()
+        nums.qsort()
         length = len(nums)
         new_nums = []
         index = 1

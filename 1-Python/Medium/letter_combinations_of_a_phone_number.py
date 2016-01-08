@@ -71,6 +71,29 @@ class LetterCombinationsOfAPhoneNumber(object):
                 combinations = temp
         return combinations
 
+    # 12/28 - Revisit
+    # Test on LeetCode - 36ms
+    # Note:
+    #   init ret as [""]
+    def letter_combinations_revisit_BFS(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        length = len(digits)
+        if length == 0:
+            return []
+        dict = {'0': " ", '1': "", '2': "abc", '3': "def", '4': "ghi", '5': "jkl", '6': "mno", '7': "pqrs", '8': "tuv", '9': "wxyz"}
+        ret = [""]
+        for i in range(0, length):
+            letters = dict[digits[i]]
+            ret_length = len(ret)
+            for i in range(0, ret_length):
+                base = ret.pop(0)
+                for letter in letters:
+                    ret.append(base+letter)
+        return ret
+
 
 def main():
     test = LetterCombinationsOfAPhoneNumber()

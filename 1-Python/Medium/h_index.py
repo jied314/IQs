@@ -72,7 +72,7 @@ class H_INDEX(object):
         if citations is None or len(citations) == 0:
             return 0
         length = len(citations)
-        citations.sort()
+        citations.qsort()
         for i in range(length, 0, -1):
             if citations[length-i] >= i:
                 return i

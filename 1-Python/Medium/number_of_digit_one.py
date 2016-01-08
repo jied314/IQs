@@ -8,7 +8,7 @@
 class Solution(object):
     # Test on LeetCode - 36ms
     # Idea - similar as below. count 1s for each digit.
-    #   use (a + 8) / 10 to solve cases when a == 0 or a == 1. if a > 1, return 1; else, return 0.
+    # use (a + 8) / 10 to solve cases when a == 0 or a == 1. if a > 1, return 1; else, return 0.
     def count_digit_one_nice(self, n):
         """
         :type n: int
@@ -58,6 +58,7 @@ class Solution(object):
 def main():
     test = Solution()
     print test.count_digit_one_counting_principle(235)
+    print test.count_digit_one_nice(213)
     print test.count_digit_one_nice(235)
 
 

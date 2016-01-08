@@ -1,44 +1,39 @@
+# Revisit - 1/7, Greedy
+# Given a string which contains only lowercase letters, remove duplicate letters so that every letter appear once
+# and only once.
+# You must make sure your result is the smallest in lexicographical order among all possible results.
+# Example:
+#   Given "bcabc"
+#   Return "abc"
+#   Given "cbacdcbc"
+#   Return "acdb"
+
+
 class RemoveDuplicateLetters(object):
+    # Adapt from Online Solution
+    # Given the string s, the greedy choice (i.e., the leftmost letter in the answer) is the smallest s[i],
+    # s.t. the suffix s[i .. ] contains all the unique letters.
     def remove_duplicate_letters(self, s):
-        """
-        :type s: str
-        :rtype: str
-        """
-        length = len(s)
-        if length < 2:
-            return s
+        idx = lambda c: ord(c) - ord('a')
+        cnt = [0] * 26  # store character appearances
+        for c in s:
+            cnt[idx(c)] += 1
 
-        ret_backward = self.remove_backward(s)
-        ret_forward = self.remove_forward(s)
-        return min(ret_backward, ret_forward)
+        candidate = [0] * 26  # record visited characters
+        for c in s:
+            i = idx(c)
+            if cnt[i] >= 1:
+                candidate[i] = 1
+                cnt[i] -= 1
+            if cnt[i] == 0:  # find one single character
+                break
 
-    def remove_backward(self, s):
-        ret_backward = ""
-        for i in range(len(s) - 1, -1, -1):
-            char = s[i]
-            if char not in ret_backward:
-                ret_backward = char + ret_backward
-            else:
-                next = ret_backward[0]
-                if char < next:  # keep new and remove older
-                    prev_pos = ret_backward.index(char)
-                    ret_backward = ret_backward[0:prev_pos] + ret_backward[prev_pos+1:]
-                    ret_backward = char + ret_backward
-        return ret_backward
+        for i in xrange(0, 26):
+            if candidate[i]:
+                ch = chr(ord('a') + i)  # the leftmost small character
+                return ch + self.remove_duplicate_letters(s[s.find(ch):].replace(ch, ""))
+        return ""
 
-    def remove_forward(self, s):
-        ret_forward = ""
-        for i in range(0, len(s)):
-            char = s[i]
-            if char not in ret_forward:
-                ret_forward += char
-            else:
-                prev_pos = ret_forward.index(char)
-                next_char = ret_forward[min(prev_pos + 1, len(ret_forward)-1)]
-                if char > next_char:  # keep new and remove older
-                    ret_forward = ret_forward[0:prev_pos] + ret_forward[prev_pos+1:]
-                    ret_forward += char
-        return ret_forward
 
 test = RemoveDuplicateLetters()
 print test.remove_duplicate_letters("bcabc")

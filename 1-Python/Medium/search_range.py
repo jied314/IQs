@@ -58,6 +58,33 @@ class SearchRange(object):
                 high = mid - 1
         return max_h
 
+    # 12/27 - Revisit
+    # Test on LeetCode - 42ms
+    # Idea:
+    #   normal BS, if target == nums[mid], adjust low and high accordingly
+    def search_range_revisit(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        if nums is None or len(nums) == 0:
+            return [-1, -1]
+        low, high = 0, len(nums)-1
+        while low <= high:
+            mid = low + (high - low) / 2
+            if nums[mid] < target:
+                low = mid + 1
+            elif nums[mid] > target:
+                high = mid - 1
+            else:  # adjust low and high based on whether equal to target
+                if nums[low] == nums[high]:
+                    return [low, high]
+                if nums[low] != target:
+                    low += 1
+                if nums[high] != target:
+                    high -= 1
+        return [-1, -1]
 
 def main():
     test = SearchRange()

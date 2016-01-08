@@ -23,7 +23,9 @@
 # Note: Do not use class member/global/static variables to store states.
 # Your serialize and deserialize algorithms should be stateless.
 #
-# Definition for a binary tree node.
+# 12/30 - Revisit
+# choose whatever format you like -> can output all children
+#
 class TreeNode(object):
     def __init__(self, x):
         self.val = x
@@ -33,7 +35,8 @@ class TreeNode(object):
 # Test on Leetcode - 192ms
 class Codec:
 
-    def serialize(self, root):
+    # BFS - flag whether reaching leaf
+    def serialize_bfs(self, root):
         """Encodes a tree to a single string.
         
         :type root: TreeNode
@@ -50,7 +53,7 @@ class Codec:
             for root in roots:
                 if root is not None:
                     level_ret += str(root.val) + ","
-                    if root.left is not None or root.right is not None:
+                    if is_bottom and root.left is not None or root.right is not None:
                         is_bottom = False
                     temp.append(root.left)
                     temp.append(root.right)
@@ -62,6 +65,44 @@ class Codec:
                 roots = temp
             ret += level_ret
         return ret[:-1]
+
+    # DFS - need to clean if last row is all None
+    def serialize_dfs(self, root):
+        """Encodes a tree to a single string.
+
+        :type root: TreeNode
+        :rtype: str
+        """
+        if root is None:
+            return ""
+        ret = [[str(root.val)]]
+        self.visit(root, 1, ret)
+        last_row = ret[-1]
+        while last_row and last_row[-1] == 'None':
+            last_row.pop()
+        string = ""
+        for row in ret:
+            string += ','.join(row)
+            string += ','
+        return string[:-1]
+
+    def visit(self, node, level, ret):
+        if node is None:
+            return
+        if level == len(ret):
+            ret.append([])
+        if node.left is None:
+            left_val = 'None'
+        else:
+            left_val = str(node.left.val)
+        ret[level].append(left_val)
+        if node.right is None:
+            right_val = 'None'
+        else:
+            right_val = str(node.right.val)
+        ret[level].append(right_val)
+        self.visit(node.left, level+1, ret)
+        self.visit(node.right, level+1, ret)
 
     def deserialize(self, data):
         """Decodes your encoded data to tree.
@@ -92,6 +133,57 @@ class Codec:
             roots = temp
         return root
 
+import Queue
+
+class CodecRevisit:
+    SEPARATOR = ','
+    NN = 'X'
+
+    # DFS preorder - print all nodes, and all its children if node is not None
+    # e.g. 1 -> [1, X, X]
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+
+        :type root: TreeNode
+        :rtype: str
+        """
+        sl = []
+        self.build_string(root, sl)
+        return ''.join(sl)
+
+    def build_string(self, node, sl):
+        if node is None:
+            sl.append(CodecRevisit.NN)
+            sl.append(CodecRevisit.SEPARATOR)
+        else:
+            sl.append(str(node.val))
+            sl.append(CodecRevisit.SEPARATOR)
+            self.build_string(node.left, sl)
+            self.build_string(node.right, sl)
+
+    # Use Data Structure - Queue
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+
+        :type data: str
+        :rtype: TreeNode
+        """
+        queue = Queue.Queue()
+        vals = data.split(CodecRevisit.SEPARATOR)
+        for val in vals:
+            queue.put(val)
+        return self.build_tree(queue)
+
+    def build_tree(self, queue):
+        val = queue.get()
+        if val == CodecRevisit.NN:
+            return None
+        node = TreeNode(int(val))
+        node.left = self.build_tree(queue)
+        node.right = self.build_tree(queue)
+        return node
+
+
 
 one = TreeNode(1)
 two = TreeNode(2)
@@ -101,9 +193,10 @@ five = TreeNode(5)
 one.left = two
 one.right = three
 three.left = four
-three.right = five
+
+one1 = TreeNode(1)
 
 # Your Codec object will be instantiated and called as such:
-codec = Codec()
+codec = CodecRevisit()
 serilization = codec.serialize(one)
 print codec.serialize(codec.deserialize(serilization))

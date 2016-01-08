@@ -86,7 +86,7 @@ class Solution(object):
 
 def main():
     test = Solution()
-    r1 = test.build_tree_iterative([1], [1])
+    # r1 = test.build_tree_iterative([1], [1])
     r2 = test.build_tree_iterative([2, 1, 3], [2, 3, 1])
     r3 = test.build_tree_iterative([4, 2, 5, 1, 6, 3, 7], [4, 5, 2, 6, 7, 3, 1])
     print 1

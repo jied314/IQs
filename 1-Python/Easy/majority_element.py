@@ -2,7 +2,11 @@
 # Given an array of size n, find the majority element. The majority element is
 # the element that appears more than floor n/2  times.
 # You may assume that the array is non-empty and the majority element always exist in the array.
-
+#
+# Bit Manipulation:
+# We would need 32 iterations, each calculating the number of 1's for the ith bit of all n numbers.
+# Since a majority must exist, therefore, either count of 1's > count of 0's or vice versa
+# (but can never be equal). The majority number's ith bit must be the one bit that has the greater count.
 
 class MajorityElement:
     # @param {integer[]} nums
@@ -22,7 +26,7 @@ class MajorityElement:
 
     # sort the list, the n/2th element must be the majority element - Running Time: O(nlgn)
     def majority_element_sort(self, nums):
-        nums.sort()
+        nums.qsort()
         return nums[len(nums) / 2]
 
     # Test on LeetCode - 52ms

@@ -57,6 +57,40 @@ class CombinationSum2:
     def is_promising(self, left, index, candidates, length):
         return index < length and left >= candidates[index]
 
+    # 12/29 - Revisit
+    # Idea:
+    #   recursively build
+    #   if duplicates, move to the next.
+    def combinationSum2(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        length = len(candidates)
+        candidates.qsort()
+        return self.helper(0, length-1, candidates, target)
+
+    def helper(self, start, end, candidates, target):
+        ret = []
+        if start > end or target < 0:
+            return ret
+        for i in range(start, end+1):
+            if candidates[i] > target:
+                break
+            if i > start and candidates[i] == candidates[i-1]:  # avoid duplicates
+                continue
+            left = candidates[i]
+            if target - left == 0:  # if target == 0, append.
+                ret.append([left])
+            else:
+                right = self.helper(i+1, end, candidates, target-left)
+                if right:
+                    for r in right:
+                        ret.append([left] + r)
+        return ret
+
+
 def main():
     test = CombinationSum2()
     # print test.combination_sum_recursive([10,1,2,7,6,1,5], 8)

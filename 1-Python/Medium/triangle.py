@@ -6,7 +6,8 @@
 # Note:
 #   corner cases. len(triangle) == 1
 #   len(triangle) = len(triangle[-1])
-#   
+#
+import sys
 class Triangle(object):
     # Test on LeetCode - 64ms, Space O(n)
     # Idea:
@@ -34,6 +35,35 @@ class Triangle(object):
                 row[j] += min(pre[j-1], pre[j])
             row[-1] += pre[-1]
         return min(row)
+
+    # 12/26 - Revisit
+    # Same Idea
+    # Note: no need to keep track of min -> min the last row of triangle
+    def minimum_total_revisit(self, triangle):
+        """
+        :type triangle: List[List[int]]
+        :rtype: int
+        """
+        if triangle is None or len(triangle) == 0:
+            return 0
+        length = len(triangle)
+        if length == 1:
+            return triangle[0][0]
+        ret = sys.maxint
+        for i in range(1, length):
+            for j in range(0, len(triangle[i])):
+                triangle[i][j] = self.find_min(triangle[i-1], j, triangle[i][j])
+                ret = min(ret, triangle[i][j])
+        return ret
+
+    def find_min(self, row, index, val):
+        ret = sys.maxint
+        length = len(row)
+        if index > 0:
+            ret = min(ret, row[index-1] + val)
+        if index < length:
+            ret = min(ret, row[index] + val)
+        return ret
 
 
 def main():

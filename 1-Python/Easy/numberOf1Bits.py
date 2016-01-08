@@ -1,3 +1,8 @@
+# 1/3 - Revisit. Bit Manipulation
+# Write a function that takes an unsigned integer and returns the number of '1' bits it has
+# (also known as the Hamming weight).
+# For example, the 32-bit integer '11' has binary representation 00000000000000000000000000001011,
+# so the function should return 3.
 
 class NumberOf1Bits:
     # @param n, an integer
@@ -24,11 +29,38 @@ class NumberOf1Bits:
                 num += 1
         return num
 
+    # Test on LC - 52ms, 45%
+    # Note: due to python int range is 64 bits, use 32 to control
+    def hamming_weight_revisit(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        count, loop = 0, 0
+        while loop < 32 and n != 0:
+            count += n & 1
+            n >>= 1
+            loop += 1
+        return count
+
+    # Test on LC - 48ms, 72%
+    # use n & n-1 to eliminate the rightmost '1'
+    def hamming_weight_revisit_nice(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        count = 0
+        while n != 0:
+            count += 1
+            n &= n-1
+        return count
+
 
 # use bit operators to count 1s - slower 60ms
 def solution1(n):
     count = 0
-    while n > 0:
+    while n != 0:
         if (1 & n) != 0:
             count += 1
         n >>= 1

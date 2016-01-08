@@ -129,6 +129,44 @@ class AdditiveNumber(object):
                 # check if meet requirements
         return False
 
+# 1/2 - Revisit
+# adjust l1 and l2, check leading zeros.
+class SolutionRevisit(object):
+    def isAdditiveNumber(self, num):
+        """
+        :type num: str
+        :rtype: bool
+        """
+        if num is None or len(num) < 3:
+            return False
+        length = len(num)
+        max_l1_and_l2 = 2 * length / 3
+        for l1 in range(1, length/2+1):
+            for l2 in range(1, length/2+1):
+                if l1 + l2 <= max_l1_and_l2:
+                    if self.check(0, l1, l1, l1 + l2, num):
+                        return True
+        return False
+
+    def check(self, s1, e1, s2, e2, num):
+        str1, str2 = num[s1:e1], num[s2:e2]
+        if self.check_leading_zeros(str1) or self.check_leading_zeros(str2):
+            return False
+        sum = self.add(str1, str2)
+        s3, e3 = e2, e2 + len(sum)
+        if e3 <= len(num) and num[s3:e3] == sum:
+            if e3 == len(num):
+                return True
+            else:
+                return self.check(s2, e2, s3, e3, num)
+        return False
+
+    def add(self, str1, str2):
+        return str(int(str1) + int(str2))
+
+    def check_leading_zeros(self, str):
+        return str[0] == '0' and len(str) > 1
+
 def main():
     test = Solution()
     print test.is_additive_number('112358')

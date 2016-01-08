@@ -72,6 +72,34 @@ class PermutationSequence(object):
 
         return "".join(map(str, permutation))
 
+    # 1/1 - Revisit
+    # similar idea
+    def getPermutation(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: str
+        """
+        digits = [str(i) for i in range(1, n+1)]
+        permutation = []
+        self.position(n, k-1, digits, permutation)
+        return ''.join(permutation)
+
+    def position(self, n, k, digits, permutation):
+        if n == 1:
+            permutation.append(digits[-1])
+            digits.pop()
+            return
+        unit = 1
+        for i in range(2, n):
+            unit *= i
+        group = k / unit
+        k %= unit
+        permutation.append(digits[group])
+        digits.pop(group)
+        self.position(n-1, k, digits, permutation)
+
+
 def main():
     test = PermutationSequence()
     print test.get_permutation(1, 1)
@@ -79,7 +107,7 @@ def main():
     print test.get_permutation(3, 4)
     print test.get_permutation(3, 5)
     print test.get_permutation(4, 6)
-    print test.getPermutation_nice(4, 24)
+    print test.get_permutation_nice(4, 24)
 
 
 if __name__ == "__main__":

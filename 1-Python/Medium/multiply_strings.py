@@ -7,7 +7,7 @@
 class MultiplyStrings(object):
     # Test on LeetCode - 456ms
     # Idea:
-    #   123 * 456 = 3 * 456 + 10 * 456 + 100 * 456
+    #   123 * 456 = 3 * 456 + 20 * 456 + 100 * 456
     #               1368
     #               912
     #              456  +

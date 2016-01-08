@@ -34,6 +34,23 @@ class GasStation(object):
                 total = 0
         return start
 
+    # 12/29 - Revisit (adapted from YX)
+    # Idea:
+    #   one scan: if tank < 0, update index to be the one before start.
+    #   if total < 0, no way; else, index + 1
+    def can_complete_circuit_revisit(self, gas, cost):
+        tank, total, index = 0, 0, -1
+        for i in range(0, len(gas)):
+            dif = gas[i] - cost[i]
+            total += dif
+            tank += dif
+            if tank < 0:
+                tank = 0
+                index = i
+        if total < 0:
+            return -1
+        return index + 1
+
 
 def main():
     test = GasStation()

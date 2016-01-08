@@ -56,6 +56,29 @@ class Solution(object):
             cur = next
         return pre
 
+    # Revisit 1/7 - TLE
+    # Idea:
+    #   keep finding new tail and insert into the right position
+    #   O(N*N) Complexity due to multiple traversal
+    def reorder_list_tle(self, head):
+        """
+        :type head: ListNode
+        :rtype: void Do not return anything, modify head in-place instead.
+        """
+        if head is None:
+            return
+        pos = head
+        while pos.next is not None and pos.next.next is not None:
+            pre = pos
+            while pre.next.next is not None:
+                pre = pre.next
+            tail = pre.next
+            pre.next = None
+            tail.next = pos.next
+            pos.next = tail
+            pos = tail.next
+
+
 
 def main():
     test = Solution()

@@ -2,7 +2,10 @@
 # Given a range [m, n] where 0 <= m <= n <= 2147483647, return the bitwise AND of all numbers in this range,
 # inclusive.
 # For example, given the range [5, 7], you should return 4.
-#
+# Idea:
+#   find the leftmost common digits of m and n
+#   e.g. m = 1110111, n = 1110101 => 1110100, but not 1110000
+import math
 class BitAndOfNumberRanges(object):
     # Test on LeetCode - 584ms
     # Idea:
@@ -79,6 +82,28 @@ class BitAndOfNumberRanges(object):
             n >>= 1
             move_factor <<= 1
         return m * move_factor
+
+    # 12/27 - Revisit
+    # Test on LeetCode - 196ms
+    # Observation:
+    #  [4,7] -> 4 go to base 4, -> [0, 3] go to base 0.
+    #  [4,8] -> 0, not the same base.
+    def range_bitwise_and_revisit(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        if m == n:
+            return m
+        if m == 0:
+            return 0
+        log_m, log_n = int(math.log(m, 2)), int(math.log(n, 2))
+        if log_m != log_n:
+            return 0
+        else:
+            base = 1 << log_m
+            return base + self.range_bitwise_and_revisit(m - base, n - base)
 
 def main():
     test = BitAndOfNumberRanges()

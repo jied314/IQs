@@ -91,6 +91,7 @@ def main():
     r1 = test.build_tree_iterative([-1], [-1])
     r2 = test.build_tree_iterative([1, 2, 3], [2, 1, 3])
     r3 = test.build_tree_iterative([1, 2, 4, 5, 3, 6, 7], [4, 2, 5, 1, 6, 3, 7])
+    r3 = test.build_tree_recursive([1, 2, 4, 5, 3, 6, 7], [4, 2, 5, 1, 6, 3, 7])
     print 1
 
 if __name__ == '__main__':

@@ -9,16 +9,16 @@ class PalindromePartitioning(object):
     # Idea:
     #   use dp to store all palindrome substring
     #   palindrome prefix + palindrome suffix
-    def partition_dp_dfs(self, s):
+    def partition_dfs(self, s):
         """
         :type s: str
         :rtype: List[List[str]]
         """
         if s is None or len(s) == 0:
             return [[]]
-        palindrome = set()
-        self.find_palindrome_substrings(palindrome, s)
-        return self.partition_recursive(palindrome, s)
+        palindromes = set()
+        self.find_palindrome_substrings(palindromes, s)
+        return self.partition_recursive(palindromes, s)
 
     # find all substring that is palindrome
     def find_palindrome_substrings(self, palindrome, s):
@@ -30,6 +30,15 @@ class PalindromePartitioning(object):
                     substring = s[j:end]
                     if substring not in palindrome and self.is_palindrome(substring):
                         palindrome.add(substring)
+
+    # find all substring that is palindrome (try all possible substrings)
+    def find_palindrome_substrings1(self, palindromes, s):
+        length = len(s)
+        for i in range(0, length):
+            for j in range(i+1, length+1):
+                substring = s[i:j]
+                if substring not in palindromes and self.is_palindrome(substring):
+                    palindromes.add(substring)
 
     # O(N) = palindrome(prefix) + O(suffix)
     def partition_recursive(self, palindrome, s):
@@ -72,10 +81,10 @@ class PalindromePartitioning(object):
 
 def main():
     test = PalindromePartitioning()
-    print test.partition_dp_dfs("")
-    print test.partition_dp_dfs("a")
-    print test.partition_dp_dfs("aab")
-    print test.partition_dp_dfs("abbaa")
+    print test.partition_dfs("")
+    print test.partition_dfs("a")
+    print test.partition_dfs("aab")
+    print test.partition_dfs("abbaa")
 
 if __name__ == '__main__':
     main()

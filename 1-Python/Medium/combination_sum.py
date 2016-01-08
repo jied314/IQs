@@ -23,7 +23,7 @@ class CombinationSum:
     # @return {integer[][]}
     def combination_sum_recursive(self, candidates, target):
         CombinationSum.result = []
-        candidates.sort()
+        candidates.qsort()
         for i in range(0, len(candidates)):
             num = candidates[i]
             self.visit([num], num, i, candidates, target)
@@ -49,7 +49,7 @@ class CombinationSum:
         :rtype: List[List[int]]
         """
         CombinationSum.result = []
-        candidates.sort()
+        candidates.qsort()
         if len(candidates) == 0 or target < candidates[0]:
             return []
         length = len(candidates)
@@ -81,7 +81,7 @@ class CombinationSum:
         :type target: int
         :rtype: List[List[int]]
         """
-        candidates.sort()
+        candidates.qsort()
         if len(candidates) == 0 or target < candidates[0]:
             return []
         length = len(candidates)

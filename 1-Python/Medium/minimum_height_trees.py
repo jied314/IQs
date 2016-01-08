@@ -79,6 +79,31 @@ class MinimumHeightTrees(object):
                 max_child_height = max(max_child_height, 1 + self.find_max_child_height(child, root, adjacent_dict))
         return max_child_height
 
+    # 12/31 - Revisit
+    # Idea:
+    #   tree graph, N vertexes, N-1 edges.
+    #   leaf vertex has 1 degree, inner vertex has a degree of at least 2.
+    #   Work bottom up, from leaves to root, stop when n < 2.
+    def find_min_height_trees_revisit(self, n, edges):
+        if n == 1:
+            return [0]
+        adj = [set() for _ in xrange(n)]
+        for i, j in edges:
+            adj[i].add(j)
+            adj[j].add(i)
+
+        leaves = [i for i in xrange(n) if len(adj[i]) == 1]
+
+        while n > 2:
+            n -= len(leaves)
+            newLeaves = []
+            for i in leaves:
+                j = adj[i].pop()
+                adj[j].remove(i)
+                if len(adj[j]) == 1:
+                    newLeaves.append(j)
+            leaves = newLeaves
+        return leaves
 
 def main():
     test = MinimumHeightTrees()

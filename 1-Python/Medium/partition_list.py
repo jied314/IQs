@@ -53,7 +53,7 @@ class PartitionList(object):
         p1, p2 = head1, head2
         while head is not None:
             if head.val < x:
-                p1.next= head
+                p1.next = head
                 p1 = p1.next
             else:
                 p2.next = head

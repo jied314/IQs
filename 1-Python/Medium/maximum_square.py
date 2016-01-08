@@ -51,6 +51,7 @@ class MaximalSquare(object):
         return True
 
     # Dynamic Programming - O(M*N) time, O(M*N) space
+    # The maximal size of the square that can be achieved at point (i, j), denoted as P[i][j]
     # 1. i == 0: P[0][j] = matrix[0][j] (topmost row);
     # 2. j == 0: P[i][0] = matrix[i][0] (leftmost column);
     # 3. For i > 0 and j > 0: if matrix[i][j] = 0, P[i][j] = 0;
@@ -62,7 +63,7 @@ class MaximalSquare(object):
         if matrix is not None and len(matrix) == 0:
             return 0
         m, n = len(matrix), len(matrix[0])
-        ret = [[0] * n] * m
+        ret = [[0] * n for _ in range(m)]
         maximum_side = 0
         for j in range(0, n):
             ret[0][j] = int(matrix[0][j])
@@ -84,6 +85,10 @@ def main():
               ['1', '0', '1', '1', '1'],
               ['1', '1', '1', '1', '1'],
               ['1', '0', '1', '1', '1']]
+    matrix1 = [['0', '0', '1', '0'],
+               ['1', '0', '1', '1'],
+               ['1', '0', '1', '1'],
+               ['1', '1', '1', '1']]
     print test.maximal_square(matrix)
     print test.maximal_square_dp(matrix)
 

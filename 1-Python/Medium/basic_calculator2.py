@@ -98,6 +98,51 @@ class BasicCalculatorII(object):
                 opd, opr = 0, e
         return sum(stack)
 
+    # 1/3 - Revisit
+    # Test on LC - 232ms 74%
+    # Idea:
+    #   opd_stack and opr_stack.
+    #   first do * and /, then + and -. Note, add fake values to avoid list operations.
+    # e.g.
+    #   opds = [1, 2, 3, 4]  ->  [1, 0, 0, 24]  -> 25
+    #   oprs = [+, *, *]    ->   [+, +, +]
+    #
+    def calculate_revisit(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        if s is None or len(s) == 0:
+            return 0
+        opds = re.findall(r'\d+', s)
+        for i in range(0, len(opds)):
+            opds[i] = int(opds[i])
+        opts = re.findall(r'[\+\-\*\\/]', s)
+        opt_length = len(opts)
+        for i in range(0, opt_length):
+            if opts[i] == '*' or opts[i] == '/':
+                opds[i+1] = self.simple_calculate(opts[i], opds[i], opds[i+1])
+                opds[i] = 0
+                if i == 0:
+                    opts[i] = '+'
+                else:
+                    opts[i] = opts[i-1]  # inherit previous operator
+        for i in range(0, opt_length):
+            opds[i+1] = self.simple_calculate(opts[i], opds[i], opds[i+1])
+        return opds[-1]
+
+    def simple_calculate(self, opt, opd1, opd2):
+        ret = 0
+        if opt == '+':
+            ret = opd1 + opd2
+        elif opt == '-':
+            ret = opd1 - opd2
+        elif opt == '*':
+            ret = opd1 * opd2
+        else:
+            ret = opd1 / opd2
+        return ret
+
 
 def main():
     test = BasicCalculatorII()

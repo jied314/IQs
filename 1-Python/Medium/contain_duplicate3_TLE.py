@@ -3,62 +3,63 @@
 # in the array such that the difference between nums[i] and nums[j] is at most t and 
 # the difference between i and j is at most k.
 #
+# Revisit - 1/1
+# BFS - use TreeSet to maintain the search window
+
+
 class ContainDuplicate3:
     # @param {integer[]} nums
     # @param {integer} k
     # @param {integer} t
     # @return {boolean}
 
-    # Test on LeetCode - TLE
+    # Test on LeetCode - TLE e.g. [0,2147483647], k=1, t=2147483647
+    # range of j is greatly expanded, and potentially overflow (for statically typed languages)
     def contains_nearby_almost_duplicate(self, nums, k, t):
-        num_dict = self.get_num_dict(nums)
-        print num_dict
-
-        # contain duplicate - must be true
-        if k > 0:
-            for num in num_dict.keys():
-                if len(num_dict[num]) > 1:
-                    indexes = num_dict[num]
-                    for i in range(0, len(indexes) - 1):
-                        if indexes[i + 1] - indexes[i] <= k:
-                            return True
-            
-        sorted_nums = sorted(num_dict.keys())  # O(lgn)
-        print sorted_nums
-
-        # obtain all possible nums[i] and nums[j]
-        num_paris = []
-        for i in range(0, len(sorted_nums) - 1):
-            num = sorted_nums[i]
-            for j in range(i + 1, len(sorted_nums)):
-                next = sorted_nums[j]
-                if abs(next - num) <= t:
-                    num_paris.append([num, next])
-        print num_paris
-
-        if k >= len(nums):
-            k = len(nums) - 1
-
-        for pair in num_paris:
-            num1 = pair[0]
-            num2 = pair[1]
-            for m in num_dict[num1]:
-                for n in num_dict[num2]:
-                    if abs(m - n) <= k:
-                        return True
-
+        """
+        :type nums: List[int]
+        :type k: int
+        :type t: int
+        :rtype: bool
+        """
+        if nums is None or len(nums) < 2:
+            return False
+        dict = {nums[0]: 0}
+        length = len(nums)
+        for i in range(1, length):
+            n = nums[i]
+            for j in range(n-t, n+t+1):
+                if j in dict and i - dict[j] <= k:
+                    return True
+            dict[n] = i
         return False
 
-    # Time & Memory Complexity: O(n)
-    def get_num_dict(self, nums):
+    # Revisit - 1/1
+    # Idea:
+    #   Since there is now a constraint on the range of the values of the elements to be considered duplicates,
+    # it reminds us of doing a range check which is implemented in tree data structure and would take
+    # O(LogN) if a balanced tree structure is used, or doing a bucket check which is constant time.
+    def contains_nearby_almost_duplicate_bucket(self, nums, k, t):
+        """
+        :type nums: List[int]
+        :type k: int
+        :type t: int
+        :rtype: bool
+        """
+        if k < 1 or t < 0:
+            return False
         dict = {}
-        for i in range(0, len(nums)):
-            num = nums[i]
-            if dict.has_key(num):
-                dict[num].append(i)
-            else:
-                dict[num] = [i]
-        return dict
+        for i in range(len(nums)):
+            bucket = nums[i] / (t+1)  # hash into bucket
+            for key in [bucket-1, bucket, bucket+1]:  # can be in any neighbor bucket
+                if key in dict and abs(dict[key] - nums[i]) <= t:
+                    return True
+            # since values in the same bucket are considered duplicates, it is safe to update dictionary.
+            dict[bucket] = nums[i]
+            if i >= k:  # maintain the search window (delete early values)
+                pop_key = nums[i-k] / (t+1)
+                dict.pop(pop_key)
+        return False
 
 
 def main():

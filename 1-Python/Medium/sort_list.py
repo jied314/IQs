@@ -36,7 +36,7 @@ class SortList:
             index = 0
             node = dummy_head.next
             tail = dummy_head
-            while index < length:
+            while index < length:  # use index to help track progress
                 # find size_a and size_b
                 size_a = min(length - index, unit_size)
                 size_b = min(length - index - size_a, unit_size)
@@ -89,16 +89,114 @@ class SortList:
         print result
 
 
+# 1/2 - Revisit
+# Quick Sort - but worst case can be O(N*N), Space Complexity - O(lgN) due to recursion
+# Reason for TLE - not handle duplicates well
+# see Yanxing's version
+class SolutionQuickSort(object):
+    # my trial - TLE
+    def sort_list_tle(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if head is None:
+            return None
+        return self.sort(head)[0]
+
+    # construct two new lists using existing nodes
+    def sort(self, node):
+        if node.next is None:
+            return [node, node]
+        dummy1 = ListNode(-1)
+        dummy2 = ListNode(-1)
+        hh, ht, th, tt = dummy1, dummy1, dummy2, dummy2
+        pivot = node
+        node = node.next
+        pivot.next = None
+        while node is not None:
+            next = node.next
+            node.next = None
+            if node.val < pivot.val:
+                ht.next = node
+                ht = node
+            else:
+                tt.next = node
+                tt = node
+            node = next
+
+        if hh.next is None:
+            small_head, small_tail = pivot, pivot
+        else:
+            small_head, small_tail = self.sort(hh.next)
+            small_tail.next = pivot
+        if th.next is None:
+            large_head, large_tail = pivot, pivot
+        else:
+            large_head, large_tail = self.sort(th.next)
+            pivot.next = large_head
+        return [small_head, large_tail]
+
+    # 1/2 - borrow from Yanxing
+    # Test on LeetCode - 216ms, 95%
+    # handle duplicates in quicksort
+    def sort_list_nice(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        return self.qsort(head, None)
+
+    # use i and ii
+    def qsort(self, start, end):
+        if start is None or start == end:
+            return start
+        pi = None  # record the right position for pivot
+        pivot_val = start.val  # use the first node as pivot
+        ni, nii = 0, 0  # ni - count of smallers, nii - count of equals
+        # i - start of greater of equals, ii - start of greater
+        node, i, ii = start.next, start.next, start.next
+        while node != end:
+            if node.val < pivot_val:  # swap and adjust i,
+                if i != node:
+                    i.val, node.val = node.val, i.val
+                pi = i
+                i = i.next
+                ni += 1
+                if ni > nii:
+                    ii = i
+                    nii = ni
+            elif node.val == pivot_val:
+                if ii != node:
+                    ii.val, node.val = node.val, ii.val
+                ii = ii.next
+                nii += 1
+            node = node.next
+
+        if pi is not None:
+            pi.val, start.val = start.val, pi.val
+            self.qsort(start, pi)
+        self.qsort(ii, end)
+        return start
+
+
+
 def main():
     one = ListNode(1)
     two = ListNode(2)
     three = ListNode(3)
     four = ListNode(4)
-    three.next = four
-    four.next = one
+    five = ListNode(5)
+    six = ListNode(6)
+    three.next = five
+    five.next = one
+    one.next = six
+    six.next = four
+    four.next = two
     l = three
     test = SortList()
     test.sort_list(l)
+
 
 if __name__ == '__main__':
     main()

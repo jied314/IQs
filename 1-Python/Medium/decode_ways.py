@@ -63,7 +63,7 @@ class DecodeWays(object):
         dp = [0] * (length + 1)
         dp[length] = 1
 
-        for i in range(length, -1, -1):
+        for i in range(length-1, -1, -1):
             if s[i] == '0':
                 continue
             dp[i] = dp[i+1]
@@ -74,3 +74,4 @@ class DecodeWays(object):
 
 test = DecodeWays()
 print test.num_decodings('101')
+print test.num_decodings_backward('1201')

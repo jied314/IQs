@@ -49,7 +49,7 @@ def main():
     two.next = four
     l = three
     test = InsertionSortList()
-    test.insertion_sort_list(l)
+    test.insertion_sort_list_correct(l)
 
 if __name__ == '__main__':
     main()

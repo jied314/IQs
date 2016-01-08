@@ -27,7 +27,6 @@ class PlusOne(object):
         :rtype: List[int]
         """
         length = len(digits)
-        carry = 1
         for i in range(length-1, -1, -1):
             if digits[i] == 9:  # need to carry
                 digits[i] = 0

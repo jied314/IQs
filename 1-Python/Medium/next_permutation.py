@@ -42,7 +42,7 @@ class NextPermutation(object):
             nums[index - 1], nums[next_index] = nums[next_index], nums[index - 1]
             self.reverse(nums, index)
         else:  # descending order, e.g. [3, 2, 1]. reverse
-            nums.sort()
+            nums.qsort()
         return nums
 
     # reverse nums[start:-1] to ascending order
