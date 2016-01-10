@@ -35,7 +35,6 @@ class WordSearch(object):
                         for pos in positions:
                             print
 
-
     def process_word(self, word):
         char_map = {}
         length = len(word)
@@ -77,6 +76,44 @@ class WordSearch(object):
         board[i][j] = c
         return False
 
+    # 1/9 - Revisit
+    # Test on LC - 204ms, 98.5%
+    # Idea: track whether visited
+    def exist_revisit(self, board, word):
+        """
+        :type board: List[List[str]]
+        :type word: str
+        :rtype: bool
+        """
+        if board is None or len(board) == 0 or len(board[0]) == 0:
+            return False
+        m, n = len(board), len(board[0])
+        paths = [[True] * n for _ in range(m)]
+        for i in range(0, m):
+            for j in range(0, n):
+                if board[i][j] == word[0] and self.helper(board, word, 1, i, j, paths):
+                    return True
+        return False
+
+    def helper(self, board, word, index, i, j, paths):
+        if index == len(word):
+            return True
+        paths[i][j] = False
+        c = word[index]
+        if i > 0 and paths[i-1][j] and board[i-1][j] == c and self.helper(board, word, index+1, i-1, j, paths):  # search top
+            paths[i][j] = True
+            return True
+        if i < len(board)-1 and paths[i+1][j] and board[i+1][j] == c and self.helper(board, word, index+1, i+1, j, paths):  # search bottom
+            paths[i][j] = True
+            return True
+        if j > 0 and paths[i][j-1] and board[i][j-1] == c and self.helper(board, word, index+1, i, j-1, paths):  # search left
+            paths[i][j] = True
+            return True
+        if j < len(board[0])-1 and paths[i][j+1] and board[i][j+1] == c and self.helper(board, word, index+1, i, j+1, paths):  # search right
+            paths[i][j] = True
+            return True
+        paths[i][j] = True
+        return False
 
 def main():
     test = WordSearch()

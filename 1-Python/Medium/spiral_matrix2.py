@@ -87,6 +87,35 @@ class SpiralMatrix2:
                 left += 1
         return ret
 
+    # Borrow from Yanxing - Test on LC 44ms
+    # Idea:
+    #   count how many steps for each spiral visit
+    #   init matrix with n*n to avoid checking whether n is odd. e.g. n = 3, k = 0, will miss visiting 9.
+    def generate_matrix_Yanxing(self, n):
+        """
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        if n == 0:
+            return []
+        matrix = [[n*n] * n for _ in range(n)]
+        count = 0
+        for k in range(0, n/2):
+            step = n - 1 - (k * 2)
+            for i in range(0, step):
+                count += 1
+                matrix[k][k+i] = count
+            for i in range(0, step):
+                count += 1
+                matrix[k+i][n-k-1] = count
+            for i in range(0, step):
+                count += 1
+                matrix[n-k-1][n-k-1-i] = count
+            for i in range(0, step):
+                count += 1
+                matrix[n-k-1-i][k] = count
+        return matrix
+
 
 def main():
     test = SpiralMatrix2()
