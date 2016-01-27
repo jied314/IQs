@@ -42,6 +42,19 @@ class SwapPairs:
             print node.val
             node = node.next
 
+    def swap_pairs_recursive(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if head is None or head.next is None:
+            return head
+        next = head.next.next
+        new_head = head.next
+        new_head.next = head
+        head.next = self.swap_pairs_recursive(next)
+        return new_head
+
 
 def main():
     test = SwapPairs()

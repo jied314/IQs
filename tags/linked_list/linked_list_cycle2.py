@@ -22,10 +22,10 @@ class LinkedListCycle2:
         while hare is not None:
             turtle = turtle.next
             hare = hare.next
-            if hare is None:
+            if hare is None:  # no cycle
                 return None
             hare = hare.next
-            if hare == turtle:
+            if hare == turtle:  # has cycle
                 turtle = head
                 while turtle != hare:
                     hare = hare.next

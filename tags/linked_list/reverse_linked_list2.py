@@ -46,11 +46,47 @@ class ReverseLinkedList2(object):
         tail.next = next
         return dummy_head.next
 
+    # same idea - Test on LC 40ms, 70%
+    def reverse_between_dj(self, head, m, n):
+        """
+        :type head: ListNode
+        :type m: int
+        :type n: int
+        :rtype: ListNode
+        """
+        if head is None or m == n:
+            return head
+        # set up before reverse part
+        new_head = ListNode(-1)
+        new_tail = new_head
+        new_head.next = head
+        node = head
+        i = 1
+        while i < m:
+            new_tail = node
+            node = node.next
+            i += 1
+        new_tail.next = None
+
+        # reverse
+        reverse_head, reverse_tail = ListNode(-1), node
+        while i <= n:
+            next = node.next
+            node.next = reverse_head.next
+            reverse_head.next = node
+            node = next
+            i += 1
+
+        # assemble
+        reverse_tail.next = node
+        new_tail.next = reverse_head.next
+        return new_head.next
+
 
 def main():
     test = ReverseLinkedList2()
     ll = lib.build_ll([3, 5])
-    test.reverse_between(ll, 1, 2)
+    test.reverse_between_dj(ll, 1, 2)
 
 
 if __name__ == '__main__':
