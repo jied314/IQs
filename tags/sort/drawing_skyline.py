@@ -2,7 +2,7 @@
 #
 # Idea:
 #   basically, for each point, find the highest point.
-# Use accumulative array - scan through the array, update height is greater.
+# Use accumulative array - scan through the array, update height if it is greater.
 # Good solution uses tree and heap.
 #   http://www.shadabahmed.com/blog/2013/04/24/skyline-algorithm-a-binary-tree-approach/
 

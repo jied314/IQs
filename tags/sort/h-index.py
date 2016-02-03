@@ -94,21 +94,7 @@ class H_INDEX(object):
         nums[low], nums[pi-1] = nums[pi-1], pivot
         return pi-1
 
-    # Nice Quick-Sort in Python
-    def quick_sort(self, nums):
-        less, equal, greater = [], [], []
-        if len(nums) > 1:
-            pivot = nums[0]
-            for num in nums:
-                if num < pivot:
-                    less.append(num)
-                elif num == pivot:
-                    equal.append(num)
-                else:
-                    greater.append(num)
-            return self.quick_sort(less) + equal + self.quick_sort(greater)
-        else:
-            return nums
+
 
 def main():
     l1 = [3, 0, 6, 1, 5]

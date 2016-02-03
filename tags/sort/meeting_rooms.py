@@ -90,7 +90,53 @@ class Solution(object):
                 ret = 1
         return ret
 
+    def min_rooms_tree(self, meetings):
+        """
+        :param meetings: List[List[int, int]]
+        :return: int
+        """
+
+        if meetings is None:
+            return 0
+        if len(meetings) < 2:
+            return len(meetings)
+        self.min_room = 1
+        sorted_meetings = sorted(meetings, key=lambda meeting: meeting[0])
+        root = Node(sorted_meetings[0][0], sorted_meetings[0][1])
+        for i in range(1, len(meetings)):
+            next_meeting = sorted_meetings[i]
+            self.check_room(root, next_meeting)
+        return self.min_room
+
+    # use Tree to store meeting rooms - O(NlgN)
+    def check_room(self, node, meeting):
+        if meeting[0] >= node.end:  # can use the room
+            node.end = meeting[1]
+        else:  # need a new room
+            if meeting[0] < node.start:
+                if node.left is None:
+                    self.min_room += 1
+                    node.left = Node(meeting[0], meeting[1])
+                else:
+                    self.check_room(node.left, meeting)
+            else:
+                if node.right is None:
+                    self.min_room += 1
+                    node.right = Node(meeting[0], meeting[1])
+                else:
+                    self.check_room(node.right, meeting)
+
+
+
+class Node(object):
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+        self.left = None
+        self.right = None
+
 test = Solution()
 print test.attend_all([[1,4], [4,5], [3,4], [2,3]])
 print test.min_rooms([[1,4], [4,5], [3,4], [2,3]])
 print test.min_rooms_nice([[1,4], [4,5], [3,4], [2,3]])
+print test.min_rooms_tree([[1,4], [4,5], [3,4], [2,3]])
