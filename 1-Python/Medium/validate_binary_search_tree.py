@@ -17,6 +17,7 @@ class ValidateBinarySearchTree(object):
     # Test on LeetCode - 72ms
     # Idea:
     #   left_child < root < right_child && predecessor < root < successor
+    # Time Complexity - O(N*lgN)
     def is_valid_BST(self, root):
         """
         :type root: TreeNode
@@ -47,4 +48,28 @@ class ValidateBinarySearchTree(object):
         while ret.left is not None:
             ret = ret.left
         return ret
+
+    # Time Complexity - O(N)
+    # adaptation from in-order traversal
+    # use last_val to record the predecessor's val (only checking one side is enough)
+    def __init__(self):
+        self.last_val = -1 * (1 << 31) - 1
+
+    def is_valid_bst_in_order(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        return self.dfs(root)
+
+    def dfs(self, root):
+        if root is None:
+            return True
+        if not self.dfs(root.left):
+            return False
+        if self.last_val >= root.val:
+            return False
+        self.last_val = root.val
+        return self.dfs(root.right)
+
 

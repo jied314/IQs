@@ -39,6 +39,13 @@ class BurstBallons(object):
     # Test on LC - 732ms
     # Time Complexity - O(N^3), Memory Complexity - O(N^3)
     # DP - compute varying ranges and consider different final pops to minimize problem size
+    # Idea:
+    #   consider different final pops
+    #   T[i, j] = max(T[i, j, k]) where i <= k <= j
+    #   T[i, j, k] = T[i, k-1] + T[k+1, j] + a[i-1] * a[k] * a[j+1] => choose k as the final pop within [i, j]
+    #   T[i, k-1]: maxCoins from the already popped left
+    #   T[k+1, j]: maxCoins from the already popped right
+    #   since k is the last one to pop for range[i, j], the value obtained should be a[i-1] * a[k] * a[j+1]
     def max_coins_dp(self, nums):
         nums.insert(0, 1)
         nums.append(1)
@@ -46,14 +53,14 @@ class BurstBallons(object):
         # dp_range_values[i][j] stores the max of coins can be obtained by popping within the range [i, j]
         dp_range_values = [[0] * full_length for _ in range(0, full_length)]
 
-        # compute from shorter length to full length
+        # compute from shorter ranges to full length
         for length in range(1, full_length-1):  # 1 <= length <= len(nums)
             for start in range(1, full_length-length):  # start + length < full_length
                 end = start + length - 1
                 # compute the max of coins can be obtained by popping within [start, end]
-                # final can be at any position
+                # final can be at any position (consider all choices)
                 for final in range(start, end+1):  # start <= final <= end
-                    temp = dp_range_values[start][final-1] + dp_range_values[final+1][end]  # popping from outside
+                    temp = dp_range_values[start][final-1] + dp_range_values[final+1][end]  # popping from subranges
                     temp += (nums[start-1] * nums[final] * nums[end+1])  # popping the final
                     dp_range_values[start][end] = max(dp_range_values[start][end], temp)
         return dp_range_values[1][full_length-2]

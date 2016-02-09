@@ -1,6 +1,14 @@
-# String - Reverse Words in a String
+# 6/17 String - Reverse Words in a String
 # Given an input string, reverse the string word by word.
-# 6/17
+# For example, Given s = "the sky is blue", return "blue is sky the".
+# Clarification:
+#   1. What constitutes a word?
+#   A sequence of non-space characters constitutes a word.
+#   2. Could the input string contain leading or trailing spaces?
+#   Yes. However, your reversed string should not contain leading or trailing spaces.
+#   3. How about multiple spaces between two words?
+#   Reduce them to a single space in the reversed string.
+# Revisit - 1/11
 class ReverseWords:
     # @param s, a string
     # @return a string
@@ -41,13 +49,49 @@ class ReverseWords:
 
     # Test on LeetCode - 70ms
     def reverse_words_list(self, s):
-        words = s.split()
+        words = s.split()  # split by multiple spaces
         words.reverse()
         return ' '.join(words)
 
+    # 1/11 - Revisit, Test on LC - 80ms 7%
+    def reverse_words_revisit(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        chars = list(s)
+        chars.reverse()
+        chars.append(' ')
+        i, length = 0, len(chars)
+        start = 0
+        words = []
+        while i < length:
+            if chars[i] == ' ' and i > 0 and chars[i-1] != ' ':
+                words.append(''.join(reversed(chars[start:i])))
+            elif chars[i] != ' ' and i > 0 and chars[i-1] == ' ':
+                start = i
+            i += 1
+        return ' '.join(words)
+
+    # 1/11 - Borrow from Yanxing
+    # Test on LC - 76ms 7%
+    def reverse_words_nice(self, s):
+        ret = ""
+        end = len(s)
+        for i in range(len(s)-1, -2, -1):
+            if i < 0 or s[i] == ' ':
+                if i < len(s)-1 and s[i+1] != ' ':
+                    ret += s[i+1: end]
+                    ret += ' '
+            elif s[i] != ' ' and i < len(s)-1 and s[i+1] == ' ':
+                end = i+1
+        return ret.rstrip()
+
 def main():
     test = ReverseWords()
-    print test.reverse_words_in_place(" ")
+    print ',', test.reverse_words_revisit(" "), ','
+    print ',', test.reverse_words_in_place(" "), ','
+    print test.reverse_words_nice('a'), ','
 
 if __name__ == '__main__':
     main()

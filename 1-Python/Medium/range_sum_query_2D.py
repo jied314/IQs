@@ -56,6 +56,7 @@ class NumMatrix(object):
 # Idea:
 #   Dynamic Programming
 #   pre-calculate the sum and store in the matrix
+#   no need to check whether index in range since dp enlarges index ranges.
 class NumMatrixDP(object):
     matrix = []
 
@@ -74,7 +75,7 @@ class NumMatrixDP(object):
 
 
 # Your NumMatrix object will be instantiated and called as such:
-numMatrix = NumMatrix([[3, 0, 1, 4, 2],
+numMatrix = NumMatrixDP([[3, 0, 1, 4, 2],
                        [5, 6, 3, 2, 1],
                        [1, 2, 0, 1, 5],
                        [4, 1, 0, 1, 7],

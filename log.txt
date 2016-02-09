@@ -19,9 +19,144 @@ Week2: 23 (20 Easy + 3 Medium)
 6/20 - 2 Remove Nth Node from List End(Linked List, Two Pointers), Implement Stack using Queue(Data Structure)
 6/21 - 2 Basic Calculator(Math, Stack), Count Complete Binary Tree Nodes(Tree, Binary Search)
 
-Week3:
+Week3: 5 (5 Medium)
 6/22 - 0
 6/23 - 0
 6/24 - 0
-6/25 - start working on ContainDuplicate3
-6/26 - finish ContainDuplicate3, 
+6/25 - 0 start working on ContainDuplicate3
+6/26 - 2 finish ContainDuplicate3, Single Number, Single Number2 (not finished)
+6/28 - 3 finish Single Number2, Best Time To Buy And Sell Stock(Array, DP), Best Time To Buy And Sell Stock2(Array, Greedy), Best Time To Buy And Sell Stock3 - Not Finished(Array, DP)
+
+Week4: 16 (16 Medium)
+6/29 - 4 Best Time To Buy And Sell Stock3 - Still Not Finished(Array, DP), Binary Tree Preorder Traversal(Tree, Stack), Linked List Cycle(Linked List, Two Pointers), Populating Next Right Pointers(Tree, DFS), Inorder Traversal(Tree, Hash Table, Stack)
+6/30 - 3 Search Insert Position(Array, Binary Search), Unique Binary Search Tree(Tree, DP), Unique Binary Search Tree2(Tree, DP)
+7/1 - 0
+7/2 - 3 Maximum Subarray(DC, DP), Convert Sorted Array To BST(Tree, DSF), Integer To Roman(Math, String)
+7/3 - 1 Find Min in Rotated Sorted Array(Array, Binary Search)
+7/4 - 2 Gray Code, Unique Paths, Generate Parentheses(BackTracking) - Not Finished
+7/5 - 3 Finish Generate Parentheses(BackTracking), Sort Color (Array, Two Pointers, Sort), Swap Nodes in Pairs(Linked List), Minimum Path Sum(Array, DP) - Not Finished
+
+Week5: 7 (7 Medium)
+7/6 - 2 Finish Minimum Path Sum(Array, DP), Rotate Image(Array), Permutation(BackTracking) - Not Finished
+7/7 - 0
+7/8 - 4 Finish Permutation(BackTracking), Set Matrix Zeroes(Array), Find Peak Element(Array, BS), Search 2D Matrix(BS)
+7/9 - 1 Spiral Matrix II(Array)
+7/10 - 0
+7/11 - 0
+7/12 - 0
+
+Week6: (4 Easy + 3 Meidum)
+7/13 - 0
+7/14 - 0
+7/15 - 3 Remove Node in a Linked List(Linked List), Maximum Depth Binary Tree(Tree, DFS), Balanced Binary Tree(Tree, DFS)
+7/16 - 1 Count Primes(HashTable, Math)
+7/17 - 0
+7/18 - 2 Combinations(Backtracking), Linked List Cycle II(Linked List, Two Pointers)
+7/19 - 1 Product Of Array Except Self(Array)
+
+Week7: 0 (Book Reading)
+
+Week8,9: (3 Hard + 9 Easy + 10 Medium)
+7/27 - 0
+7/28 - 0
+7/29 - 1 Find Min In Rotated Sorted Array2(Array, BS)
+7/30 - 7 Search in Rotated Sorted Array(Array, BS), Same Tree(Tree, DFS), Remove Duplicates From Sorted List(Linked List), Sum Root To Leaf Numbers(Tree, DFS), Implement Queue using Stacks(Stack, Data Structure), Implement Trie(Trie, Data Structure), Container with Most Water(Array, Two Pointers)
+7/31 - 2 Lowest Common Ancestor Binary Search Tree(Tree), Lowest Common Ancestor Binary Tree(Tree)
+8/1 -  2 Merge Two Sorted Lists(LL), Merge Sorted Arrays(Array, Two Pointers)
+8/2 - 0 Work on Sort List(LL, Sort)
+8/3 - 2 Finish Sort List(LL, Sort), Insertion Sort List(LL, Sort), Work On Flatten Binary Tree To Linked List(Tree, DFS)
+8/4 - 4 Finish Flatten Binary Tree To Linked List(Tree, DFS), Review Binary Tree Preorder & Inorder & Postorder Traversal, Remove Duplicates From Sorted Array(Array, Two Pointers), Remove Duplicates From Sorted Array2(Array, Two Pointers)
+8/5 - 3 Remove Duplicates From Sorted List2(LL), Valid Anagram(Hash Table, Sort), Search in Rotated Sorted Array2(Array, BS)
+8/6 - 1 Kth Smallest Element In BST(Tree, Binary Search)
+8/7 - 0 Refresh memory on Best Time To Buy And Sell Stock 1 & 2
+8/8 - 0
+8/9 - 0
+
+Week10: (2 Hard + 3 Medium)
+8/10 - 2 Finish Best Time To Buy And Sell Stock3, Best Time To Buy And Sell Stock4
+8/11 -
+8/12 - Work on BST Iterator(Tree, Stack)
+8/13 - 0
+8/14 - Finish BST Iterator(Tree, Stack)
+8/15 - Combination Sum3(BackTracking)
+8/16 - Combination Sum(BackTracking)
+
+Week11: (1 Hard + 7 Medium)
+8/17 - 1 Combination Sum2(BackTracking)
+8/18 - 1 Subsets(BackTracking, Bit Manipulation)
+8/19 - 1 Subsets2(BackTracking)
+8/20 - 2 BinaryTreeRightSideView(Tree, DFS, BFS),
+8/21 - 2 ConvertSortedListToBST(DFS, List), Populating Next Right Pointers2()
+8/22 - 2 Search a 2D Matrix(Divide and Conquer, BS), Simplify Path(Stack, String)
+
+September:
+9/14 - 2 Remove Element(E), Single Number3(M)
+9/24 - 2 Move Zeroes(E), SummaryRanges(E),
+
+October:
+Week10-1: 5 (3 Easy, 2 Medium, 0 Hard)
+10/1 - Ugly Number(E), MissingNumber(M), PeekingIterator(M)
+10/2 - Symmeric Tree(E),
+10/3 - Power of Two(E),
+10/4 - 0
+
+Week10-2: 14 (0 Easy, 14 Medium, 0 Hard)
+10/5 - 1 Game of Life(M)
+10/6 - 1 Perfect Squares (M)
+10/7 - 4 Unique Paths2 (M), Triangle(M), Add Parentheses(M), Partition List(M)
+10/8 - 2 House Robbery2 (M), Search Range (M)
+10/9 - 1 Palindrome Partitioning (M),
+10/10 - 4 Construct Binary Tree from Preorder and Inorder Traversal (M), Jump Game (M), Bitwise And of Number Ranges (M), Pow(x, n) (M)
+10/11 - 1 Construct Binary Tree from Inorder and Postorder Traversal (M)
+
+Week10-3: 9 (0 Easy, 9 Medium, 0 Hard)
+10/13 - 2 Path Sum2 (M), Binary Zigzag Level Order Traversal (M)
+10/14 - 2 ReverseLinkedList2 (M), Gas Station (M)
+10/15 - 4 Permutations2 (M), Next Permutation (M), Clone Graph (M), Minimize Size Subarray (M)
+10/16 - 0
+10/17 - 0 working on Word Break (M)
+10/18 - 1 Letter Combinations Of A Phone Number (M)
+
+Week10-4: 16 (0 Easy, 16 Medium, 0 Hard)
+10/19 - 3 Sqrt (M), Majority Element2 (M), revisit Majority Element (E), Permutation Sequence (M)
+10/20 - 3 Refine Permutation Sequence (M), Ugly Number2 (M), Evaluate Reverse Polish Notation (M), Rotate List (M)
+10/21 - 1 Restore IP Addresses (M), Visit Number of Digit One (M)
+10/22 - 3 Reorder List (M), Finish Number of Digit One (M), Multiply Strings (M)
+10/23 - 2 Word Search (M), Spiral Matrix (M)
+10/24 - 2 Basic Calculator2 (M), Maximal Square (M)
+10/25 - 2 Add Two Numbers (M), Add and Search Word (M)
+
+Week10-5: 1 (0 Easy, 1 Medium, 0 Hard)
+10/26 - 0
+10/27 - 1 Validate Binary Search Tree (M)
+
+November:
+11/20 - 1 H-index (M)
+11/21 - 1 Range Sum Query 2D (M)
+
+11/27 - 1 Plus One (E), H-index2 (M)
+11/28 - 1 Longest Increasing Subsequence (M)
+
+December:
+Week12-1:
+12/1 - 0 Additive Number (M, Not Finished),
+12/2 - 3 Word Break (M), Repeated DNA Sequences (M), Largest Number(M)
+12/3 - 3 Finish Largest Number(M), Two Sum (M), Word Ladder(M), Finish Additive Number (M)
+12/4 - 3 Integer to English Words (M), Decode Ways (M), Surrounded Regions (M)
+12/5 - 1 Finish Word Ladder(M), Divide Two Integers(M),
+12/6
+
+Week12-2
+12/7 - 0
+12/12 - 1 Fraction to Recurring Decimal (M)
+12/13 - 2 Range Sum Query - Mutable (M), Burst Balloons (M)
+
+Week12-3: 68 (68 Easy, 0 Medium, 0 Hard)
+12/14 - 19E
+12/15 - 17E
+12/16 - 0
+12/17 - 10E
+12/18 - 16E
+12/19 - 0
+12/20 - 6E
+12/20 - 14M

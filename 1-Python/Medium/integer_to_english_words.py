@@ -61,6 +61,43 @@ class Solution(object):
         digits.reverse()
         return digits
 
+    # 1/10 Revisit - Test on LC 52ms 69%
+    # Idea:
+    #   recursion
+    LESS_THAN_TWENTY = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven",
+                        "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"]
+    TENS = ["", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
+    THOUSANDS = ["", "Thousand", "Million", "Billion"]
+
+    def number_to_words_nice(self, num):
+        if num == 0:
+            return 'Zero'
+        i = 0
+        ret = []
+        while num > 0:
+            if num % 1000 != 0:
+                ret.append(self.helper(num % 1000) + " " + self.THOUSANDS[i])
+            num /= 1000
+            i += 1
+        ret.reverse()
+        return " ".join(ret).strip()
+
+    # recursively translate small number to string
+    def helper(self, num):
+        ret = []
+        if num == 0:
+            return ""
+        elif num < 20:
+            ret.append(self.LESS_THAN_TWENTY[num])
+        elif num < 100:
+            ret.append(self.TENS[num/10])
+            ret.append(self.helper(num % 10))
+        else:
+            ret.append(self.LESS_THAN_TWENTY[num/100])
+            ret.append("Hundred")
+            ret.append(self.helper(num % 100))
+        return ' '.join(ret).strip()
+
 test = Solution()
-print test.number_to_words(12300120)
+print test.number_to_words_nice(12300120)
 

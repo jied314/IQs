@@ -9,92 +9,63 @@
 #         self.right = None
 #         self.next = None
 #
+
+import collections
 class PopulatingNextRightPointers2:
     # @param root, a tree link node
     # @return nothing
 
-    # Test on LeetCode - TLE
-    def connect_tle(self, root):
-        if root:
-            root.next = None
-            upper = [root]
-            lower = []
-            i = 0
-            while upper[0].left is not None:
-                node = upper.pop(0)
-                node.left.next = node.right
-                lower.append(node.left)
-                lower.append(node.right)
-                if node.next is None:  # the last node in current level
-                    if lower[0].left is not None:
-                        node.right.next = None
-                        upper = lower
-                        lower = []
-                        i = 0
-                else:
-                    node.right.next = upper[0].left
-                    i += 1
+    # Same solution PopulatingNextRightPointers
+    # Use None as level separator
+    # Time Complexity - O(N), Space Complexity - O(1)
+    def connect_queue(self, root):
+        if root is None:
+            return
 
-    # Test on LeetCode - 88ms
-    # utilize the next attribute - BFS
-    def connect(self, root):
-        if root:
-            node = root
-            # find the leftmost children
-            start = node.left
-            while start is None and node is not None:
-                if node.left is None:
-                    if node.right is None:
-                        node = node.next
+        nodes = collections.deque()
+        nodes.append(root)
+        nodes.append(None)
+        while len(nodes) > 1:
+            node = nodes.popleft()
+            if node is None:
+                nodes.append(None)
+            else:
+                top = nodes.popleft()
+                node.next = top
+                nodes.appendleft(top)
+                if node.left is not None:
+                    nodes.append(node.left)
+                if node.right is not None:
+                    nodes.append(node.right)
+
+    # Space Complexity - O(N)
+    # Test on LC - 96ms, 92%
+    def connect_nice(self, root):
+        head = None  # head of the next level
+        pre = None  # the leading node on the next level
+        cur = root
+        # based on level-order traversal
+        while cur is not None:
+            while cur is not None:
+                # left child
+                if cur.left is not None:
+                    if pre is not None:
+                        pre.next = cur.left
                     else:
-                        start = node.right
-                else:
-                    start = node.left
-            # assign next
-            while start is not None:
-                lc = start
-                while node.next is not None:
-                    if node.left is None or node.right is None:
+                        head = cur.left
+                    pre = cur.left
+                # right child
+                if cur.right is not None:
+                    if pre is not None:
+                        pre.next = cur.right
                     else:
-                        node.left.next = node.right.next
+                        head = cur.right
+                    pre = cur.right
 
-                    lc = node.left
-                    rc = node.right
-                    if lc is None and rc is None:
-                        node = node.next
-                    else:  # node has children
+                # move to next node
+                cur = cur.next
 
-                        if lc is not None:
-                            if rc is not None:
-                                lc.next = rc
-
-
-
-
-            while lc is not None:
-                while node.next is not None:
-                    if node.left is not None:
-                        if node.right is not None:
-                            node.left.next = node.right
-                            node.right.next = node.next.left
-                        else:
-                            node.left.next = node.next.left
-                    node = node.next
-                node.left.next = node.right
-                node.right.next = None
-                node = lc
-                lc = lc.left
-
-    # Test on LeetCode - 92ms
-    # utilize the next attribute - DFS
-    def connect_recursive(self, root):
-        self.visit(root)
-
-    def visit(self, node):
-        if node is not None and node.left is not None:
-            node.left.next = node.right
-            if node.next is not None:
-                node.right.next = node.next.left
-            self.visit(node.left)
-            self.visit(node.right)
-
+            # init value for the next level
+            cur = head
+            head = None
+            pre = None

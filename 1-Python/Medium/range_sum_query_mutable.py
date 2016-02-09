@@ -80,6 +80,7 @@ class NumArraySegmentTree(object):
         self.nums = nums
         self.root = self.build_sum_segment_tree(0, len(nums)-1)
 
+    # build segment tree that left nodes are array elements; internal nodes are segment sum nodes
     def build_sum_segment_tree(self, l, r):
         if l > r:  # need to check boundary
             return None
@@ -88,14 +89,13 @@ class NumArraySegmentTree(object):
             node.range = [l, r]
         else:
             mid = l + (r - l) / 2
-            left = self.build_sum_segment_tree(l, mid)
+            left = self.build_sum_segment_tree(l, mid)  # include mid
             right = self.build_sum_segment_tree(mid+1, r)
             node = TreeNode(left.val + right.val)
             node.left = left
             node.right = right
             node.range = [left.range[0], right.range[1]]
         return node
-
 
     def update(self, i, val):
         """
@@ -119,10 +119,8 @@ class NumArraySegmentTree(object):
             self.update_tree(i, diff, node.left)
             self.update_tree(i, diff, node.right)
 
-
     def is_within_range(self, i, range):
         return range[0] <= i <= range[1]
-
 
     def sumRange(self, i, j):
         """
@@ -153,14 +151,12 @@ class NumArraySegmentTree(object):
         # overlap
         return self.sumRange_helper(i, j, node.left) + self.sumRange_helper(i, j, node.right)
 
-
 class TreeNode(object):
     def __init__(self, val):
         self.val = val
         self.left = None
         self.right = None
         self.range = None
-
 
 
 # Your NumArray object will be instantiated and called as such:

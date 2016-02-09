@@ -25,6 +25,7 @@ class FindMinInRotatedSortedArray2:
                 return nums[r]
         return nums[l]
 
+    # Test on LC - 44ms, 75% => should always use r
     def find_min_nice_r(self, nums):
         l = 0
         r = len(nums) - 1
@@ -38,18 +39,24 @@ class FindMinInRotatedSortedArray2:
                 r -= 1
         return nums[l]
 
-    def find_min_nice_l(self, nums):
+    # Test on LC - 52ms, 23%
+    # compare to both ends. if duplicates, l += 1
+    def find_min_revisit(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
         l = 0
         r = len(nums) - 1
-        while l < r:
+        while l < r and nums[l] >= nums[r]:
             m = l + (r - l)/2
-            if nums[m] > nums[l]:  # min is [m + 1, r]
+            if nums[m] > nums[r]:  # min is [m + 1, r]
                 l = m + 1
             elif nums[m] < nums[l]:  # min is [l, m]
                 r = m
             else:  # nums[m] == nums[l]
                 l += 1
-        return nums[r]
+        return nums[l]
 
 def main():
     test = FindMinInRotatedSortedArray2()

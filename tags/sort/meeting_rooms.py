@@ -1,4 +1,4 @@
-# 1/27 - Sort, Greedy
+# 1/27 - Sort, Greedy, Heap
 # Given a array of pairs where each pair contains the start and end time of a meeting (as in int),
 # Determine if a single person can attend all the meetings
 # For example:
@@ -10,6 +10,7 @@
 #   Determine the minimum number of meeting rooms needed to hold all the meetings.
 #   Input array { pair(1, 4), pair(2,3), pair(3,4), pair(4,5) }
 #   Output: 2
+import heapq
 
 
 class Solution(object):
@@ -90,12 +91,12 @@ class Solution(object):
                 ret = 1
         return ret
 
+    # similar idea, but use tree
     def min_rooms_tree(self, meetings):
         """
         :param meetings: List[List[int, int]]
         :return: int
         """
-
         if meetings is None:
             return 0
         if len(meetings) < 2:
@@ -126,7 +127,44 @@ class Solution(object):
                 else:
                     self.check_room(node.right, meeting)
 
+    # similar idea, but use heap to store meeting rooms (end time)
+    # can be viewed as a variant of tree solution
+    def min_rooms_heap(self, meetings):
+        if meetings is None or len(meetings) == 0:
+            return 0
+        # sort by starting time
+        sorted_meetings = sorted(meetings, key=lambda meeting: meeting[0])
 
+        # use a min heap to track the minimum end time of merged intervals
+        heap = Heap()
+        heap.push(sorted_meetings[0])
+
+        for i in range(1, len(meetings)):
+            next_meeting = sorted_meetings[i]
+            min_room = heap.pop()
+            if next_meeting[0] >= min_room[1]:  # update end time
+                min_room[1] = next_meeting[1]
+            else:  # add a new meeting room
+                heap.push(next_meeting)
+            heap.push(min_room)
+        return heap.size()
+
+    def min_rooms_fast(self, meetings):
+        starts = sorted(i[0] for i in meetings)
+        ends = sorted(i[1] for i in meetings)
+
+        e = 0
+        numRooms = available = 0
+        for start in starts:
+            while ends[e] <= start:
+                available += 1
+                e += 1
+            if available:
+                available -= 1
+            else:
+                numRooms += 1
+
+        return numRooms
 
 class Node(object):
     def __init__(self, start, end):
@@ -135,8 +173,28 @@ class Node(object):
         self.left = None
         self.right = None
 
+
+class Heap(object):
+    def __init__(self):
+        self._data = []
+
+    def push(self, item):
+        heapq.heappush(self._data, (item[1], item))
+
+    def pop(self):
+        return heapq.heappop(self._data)[1]
+
+    def poll(self):
+        return heapq[0][1]
+
+    def size(self):
+        return len(self._data)
+
+
 test = Solution()
 print test.attend_all([[1,4], [4,5], [3,4], [2,3]])
 print test.min_rooms([[1,4], [4,5], [3,4], [2,3]])
 print test.min_rooms_nice([[1,4], [4,5], [3,4], [2,3]])
 print test.min_rooms_tree([[1,4], [4,5], [3,4], [2,3]])
+print test.min_rooms_heap([[1,4], [4,5], [3,4], [2,3]])
+print test.min_rooms_fast([[1,4], [4,5], [3,4], [2,3]])
