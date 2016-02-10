@@ -30,6 +30,7 @@ class Solution(object):
         g = Graph(26)
         for i in range(0, len(dict)-1):
             self.build_graph(g, dict[i], dict[i+1])
+        # order must exist, no need to check cycle
         order = g.topo_sort()
         ret = []
         for c in order:
