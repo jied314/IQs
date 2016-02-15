@@ -2,7 +2,7 @@
 from collections import deque
 
 
-class Graph(object):
+class DirectedGraph(object):
     def __init__(self, num_vert):
         self._num_vert = num_vert  # number of vertices
         self._adjs = [[] for _ in range(num_vert)]  # adjacent list
@@ -81,8 +81,8 @@ class Graph(object):
             return False
 
         in_visit[vertex] = True
-        for next in self._adjs[vertex]:
-            if not visited[next] and self.cycle(next, visited, in_visit):
+        for adj in self._adjs[vertex]:
+            if not visited[adj] and self.cycle(adj, visited, in_visit):
                 return True
         visited[vertex] = True
         in_visit[vertex] = False
@@ -92,7 +92,7 @@ class Graph(object):
 
     # return the transpose of this graph
     def get_transpose(self):
-        g = Graph(self._num_vert)
+        g = DirectedGraph(self._num_vert)
         for i in range(0, self._num_vert):
             adjacent_vertices = self._adjs[i]
             for vertex in adjacent_vertices:
@@ -119,9 +119,9 @@ class Graph(object):
                 return False
 
         gr = self.get_transpose()
-
         for i in range(self._num_vert):
             visited[i] = False
+
         # do DFS for reversed graph starting from first vertex.
         # Staring Vertex must be same starting point of first DFS
         gr.dfs_util(0, visited)
@@ -184,7 +184,7 @@ class Graph(object):
         return True
 
 # Create graphs given in the above diagrams
-g1 = Graph(5)
+g1 = DirectedGraph(5)
 g1.add_edge(0, 1)
 g1.add_edge(1, 2)
 g1.add_edge(2, 3)
@@ -196,7 +196,7 @@ if g1.is_strongly_connected():
 else:
     print "No"
 
-g2 = Graph(4)
+g2 = DirectedGraph(4)
 g2.add_edge(0, 1)
 g2.add_edge(1, 2)
 g2.add_edge(2, 3)
@@ -206,7 +206,7 @@ else:
     print "No"
 
 # Create a graph given in the above diagram
-g = Graph(5)
+g = DirectedGraph(5)
 g.add_edge(1, 0)
 g.add_edge(0, 2)
 g.add_edge(2, 1)
