@@ -18,7 +18,7 @@
 #       b) Create an edge in g from mismatching character of word1 to that of word2.
 #   3) Print topological sorting of the above created graph.
 
-from graph import Graph
+from directed_graph import DirectedGraph
 
 
 class Solution(object):
@@ -27,7 +27,7 @@ class Solution(object):
         :param dict: List[String]
         :return: List[String]
         """
-        g = Graph(26)
+        g = DirectedGraph(26)
         for i in range(0, len(dict)-1):
             self.build_graph(g, dict[i], dict[i+1])
         # order must exist, no need to check cycle

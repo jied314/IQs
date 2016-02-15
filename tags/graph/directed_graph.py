@@ -130,7 +130,6 @@ class DirectedGraph(object):
         for visit in visited:
             if visit is False:
                 return False
-
         return True
 
     # print all SCCs exist in the graph - Kosaraju's Algorithm
@@ -162,7 +161,7 @@ class DirectedGraph(object):
         stack.append(v)
 
     # check if a graph is a bipartite
-    # O(V+E) if using adjacent list; else O(V^2)
+    # O(V+E) if using adjacent list; else O(V^2) if using adjacent matrix
     def is_bipartite(self, src):
         RED, BLUE, NULL = 1, 2, -1
         # create a color array to store colors assigned to all vertices.
@@ -176,10 +175,10 @@ class DirectedGraph(object):
         while queue:
             u = queue.pop()
             for v in self._adjs[u]:
-                if colors[v] == NULL:
+                if colors[v] == NULL:  # assign the neighbor a different color
                     colors[v] = BLUE if colors[u] == RED else RED
                     queue.append(v)
-                elif colors[v] == colors[u]:
+                elif colors[v] == colors[u]:  # in the same partition
                     return False
         return True
 

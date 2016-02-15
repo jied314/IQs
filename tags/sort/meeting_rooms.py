@@ -1,5 +1,5 @@
 # 1/27 - Sort, Greedy, Heap
-# Given a array of pairs where each pair contains the start and end time of a meeting (as in int),
+# Given an array of pairs where each pair contains the start and end time of a meeting (as in int),
 # Determine if a single person can attend all the meetings
 # For example:
 #   Input array { pair(1,4), pair(4, 5), pair(3,4), pair(2,3) }
@@ -30,14 +30,14 @@ class Solution(object):
         return True
 
     # Idea:
-    #   sort, then record each meeting room by its finishing time
+    #   sort by the starting time, then record each meeting room by its finishing time
     #   for each new interval, if its start time < any meeting room's end time, add a new room;
     #   else, update the meeting room's end time
     # Proof:
     #   the min room should be the max rooms needed for the durations of all meetings. keep track of
     # all rooms needed at each time, the max is the result.
     # Complexity: O(N*N)
-    def min_rooms(self, meetings):
+    def min_rooms_greedy(self, meetings):
         """
         :param meetings: List[List[int, int]]
         :return: int
@@ -60,38 +60,7 @@ class Solution(object):
                 end_meetings.append(next_meeting[1])
         return len(end_meetings)
 
-    # Borrow from Yanxing
-    # Idea:
-    #   store all time (starting time and end time as negative), then sort.
-    def min_rooms_nice(self, meetings):
-        times = []
-        for m in meetings:
-            times.append(m[0])
-            times.append(-m[1])
-        st = sorted(times, cmp=self.my_cmp)
-        ret, cur = 0, 0
-        for t in st:
-            if t >= 0:
-                cur += 1
-                ret = max(ret, cur)
-            else:
-                cur -= 1
-        return ret
-
-    def my_cmp(self, a, b):
-        if abs(a) == abs(b):
-            if a < b:
-                ret = -1
-            else:
-                ret = 1
-        else:
-            if abs(a) < abs(b):
-                ret = -1
-            else:
-                ret = 1
-        return ret
-
-    # similar idea, but use tree
+    # similar idea, but use tree to expedite searching for the right finishing-time meeting room
     def min_rooms_tree(self, meetings):
         """
         :param meetings: List[List[int, int]]

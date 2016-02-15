@@ -35,8 +35,10 @@
 #   2) Reverse directions of all arcs to obtain the transpose graph.
 #   3) One by one pop a vertex from S while S is not empty. Let the popped vertex be 'v'.
 #      Take v as source and do DFS (call DFSUtil(v)). The DFS starting from v prints strongly connected component of v.
+# Reason for using a stack to record visiting sequence:
+#   Want to process from sink vertex to source vertex -> print all SCCs
 
-from graph import Graph
+from directed_graph import DirectedGraph
 
 
 class Solution(object):
