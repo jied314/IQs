@@ -6,7 +6,8 @@
 # You may assume that each input would have exactly one solution.
 #   Input: numbers={2, 7, 11, 15}, target=9
 #   Output: index1=1, index2=2
-#
+
+
 class TwoSum(object):
     # Test on LeetCode - 44ms
     # Idea:
@@ -30,6 +31,7 @@ class TwoSum(object):
                 i += 1
             else:
                 break
+
         index1 = nums.index(array[i])
         if array[i] == array[j]:  # duplicates
             for index in range(index1+1, length):
@@ -61,7 +63,9 @@ class TwoSum(object):
             num_dict[num] = i + 1
         return ret
 
+
 test = TwoSum()
 print test.two_sum([2, 7, 11, 15], 18)
 print test.two_sum([0, 4, 3, 0], 0)
 print test.two_sum_hash([-1,-2,-3,-4,-5], -8)
+print test.two_sum_two_pointers([3,2,4], 6)

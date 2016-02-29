@@ -56,6 +56,7 @@ class ReverseLinkedList2(object):
         """
         if head is None or m == n:
             return head
+
         # set up before reverse part
         new_head = ListNode(-1)
         new_tail = new_head

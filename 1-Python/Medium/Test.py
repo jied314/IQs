@@ -30,76 +30,6 @@ import re
 import lib
 
 class Solution:
-    """
-    def canFinish(self, numCourses, prerequisites):
-        """
-    """
-        :type numCourses: int
-        :type prerequisites: List[List[int]]
-        :rtype: bool
-        """
-    """
-        if len(prerequisites) == 0:
-            return False
-        if numCourses <= 1:
-            return True
-        adj = self.build_adj(numCourses, prerequisites)
-        reverse_adj = self.build_reverse_adj(numCourses, prerequisites)
-        starts = [i for i in xrange(numCourses) if len(reverse_adj[i]) == 0]
-        visited = set()
-        while reverse_adj:
-            new_starts = []
-            for start in starts:
-                visited.add(start)
-                del reverse_adj[start]
-                tails = adj[start]
-                for tail in tails:
-                    if tail in visited:
-                        return False
-                    reverse_adj[tail].pop(start)
-                    if len(reverse_adj[tail]) == 0:
-                        new_starts.append(tails)
-            starts = new_starts
-        return True
-
-    # [1, 0] -> {1: [0]}
-    def build_reverse_adj(self, numCourses, prerequisites):
-        reverse_adj = [[] for _ in xrange(numCourses)]
-        for i, j in prerequisites:
-            reverse_adj[i].append(j)
-        return reverse_adj
-
-    # [1, 0] -> {0: [1]}
-    def build_adj(self, numCourses, prerequisites):
-        adj = [[] for _ in xrange(numCourses)]
-        for i, j in prerequisites:
-            adj[j].append(i)
-        return adj
-
-    def can_finish_dfs_revisit(self, numCourses, prerequisites):
-        matrix = self.generate_adjacent_matrix(numCourses, prerequisites)
-        incoming_degrees = [0] * numCourses
-        for i in range(0, numCourses):
-            for course in matrix[i]:
-                incoming_degrees[course] += 1
-        for j in range(0, numCourses):
-            for i in range(0, numCourses):
-                if incoming_degrees[i] > 0:
-                    continue
-                if i == numCourses:  # no starting nodes
-                    return False
-                incoming_degrees[i] = -1
-                for
-        return True
-
-    def generate_adjacent_matrix(self, numCourses, edge_list):
-        matrix = [set() for _ in xrange(numCourses)]
-        for cur, pre in edge_list:
-            matrix[pre].add(cur)
-        return matrix"""
-
-
-
     """def calculate(self, s):
 
         :type s: str
@@ -139,14 +69,14 @@ class Solution:
             ret = opd1 + opd2
         else:
             ret = opd1 - opd2
-        return ret"""
+        return ret
 
     def multiply(self, num1, num2):
-        """
+
         :type num1: str
         :type num2: str
         :rtype: str
-        """
+
         # make sure len(num1) >= len(num2)
         nl1, nl2 = self.convert_string_to_list(num1), self.convert_string_to_list(num2)
         if len(nl2) > len(nl1):
@@ -218,53 +148,58 @@ class Solution:
         nl = list(num)
         for i in range(0, len(nl)):
             nl[i] = int(nl[i])
-        return nl
+        return nl"""
 
-    def findOrder(self, numCourses, prerequisites):
-        """
-        :type numCourses: int
-        :type prerequisites: List[List[int]]
-        :rtype: List[int]
-        """
-        if numCourses == 0:
-            return []
-        if numCourses == 1:
-            return[0]
 
+    def intToRoman(self, num):
+        """
+        :type num: int
+        :rtype: str
+        """
+        if num < 0:
+            return ""
         ret = []
-        visited = set()
-        # store outgoing edges pre -> cur
-        matrix_out = [set() for _ in range(numCourses)]
-        # store degree of incoming edges -> decide whether is a new root
-        num_in = [0] * numCourses
-        # store root nodes (only have outgoing edges)
-        roots = set([i for i in range(0, numCourses)])
-        self.generate_adjacent_list(matrix_out, num_in, roots, numCourses, prerequisites)
-
-        while len(visited) < numCourses:  # not visit all nodes
-            if not roots:
-                return []
-            # for each root node, remove outgoing edges, store new root nodes
-            temp = set()
-            for root in roots:
-                visited.add(root)
-                courses = matrix_out[root]
-                for course in courses:
-                    if course in visited:  # detect a cycle
-                        return []
-                    else:
-                        num_in[course] -= 1
-                        if num_in[course] == 0:
-                            temp.add(course)
-            ret.extend(list(roots))
-            roots = temp
-        return ret
-
-    def generate_adjacent_list(self, matrix, num_in, roots, numCourses, prerequisites):
-        for cur, pre in prerequisites:
-            matrix[pre].add(cur)
-            num_in[cur] += 1
-            roots.discard(cur)  # not start nodes
+        while num > 0:
+            if num > 1000:
+                ret.append("M")
+                num -= 1000
+            elif num > 900:
+                ret.append("CM")
+                num -= 900
+            elif num > 500:
+                ret.append("D")
+                num -= 500
+            elif num > 400:
+                ret.append("CD")
+                num -= 400
+            elif num > 100:
+                ret.append("C")
+                num -= 100
+            elif num > 90:
+                ret.append("XC")
+                num -= 90
+            elif num > 50:
+                ret.append("L")
+                num -= 50
+            elif num > 40:
+                ret.append("XL")
+                num -= 40
+            elif num > 10:
+                ret.append("X")
+                num -= 10
+            elif num == 9:
+                ret.append("IX")
+                num -= 9
+            elif num >= 5:
+                ret.append("V")
+                num -= 5
+            elif num == 4:
+                ret.append("IV")
+                num -= 4
+            else:
+                ret.append("I")
+                num -= 1
+        return "".join(ret)
 
 test = Solution()
-print test.findOrder(4, [[0,1],[3,1],[1,3],[3,2]])
+print test.intToRoman(6)
