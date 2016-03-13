@@ -16,7 +16,7 @@
 # Idea:
 #   start from Os on boarders, visit all connecting Os, make mark
 #   then for the rest Os, change to Xs. The marked ones change back to Os.
-#   Use BFS - since stack may overflow
+#   Use BFS - since DFS stack may overflow
 # Note:
 #   special cases - need to do boundary check (crucial)
 #

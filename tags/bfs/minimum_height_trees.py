@@ -31,60 +31,26 @@
 # return [3, 4]
 #
 # Hint:
-# How many MHTs can a graph have at most?
+# How many MHTs can a graph have at most? 1 or 2.
+#
 # Note:
 #   (1) According to the definition of tree on Wikipedia: "a tree is an undirected graph in which any two vertices
 # are connected by exactly one path. In other words, any connected graph without simple cycles is a tree."
 #   (2) The height of a rooted tree is the number of edges on the longest downward path between the root
 # and a leaf.
 #
+# Idea:
+#   Work from the edges of the graph (node with 1 in-degree) inward, until there are only 1 or 2 nodes left.
+# The left nodes are the roots with MHTs.
+
+
 class MinimumHeightTrees(object):
-    def find_min_height_trees(self, n, edges):
-        """
-        :type n: int
-        :type edges: List[List[int]]
-        :rtype: List[int]
-        """
-        ret = []
-        min_height = n - 1
-        adjacent_dict = self.generate_adjacent_list(n, edges)
-        for node, adjacent_list in adjacent_dict.iteritems():
-            if len(adjacent_list) > 1:
-                height = self.find_max_child_height(node, None, adjacent_dict)
-                if height == min_height:
-                    ret.append(node)
-                elif height < min_height:
-                    ret = [node]
-                    min_height = height
-        if len(ret) == 0:
-            ret = adjacent_dict.keys()
-        return ret
-
-    # generate adjacent list for the undirected graph
-    # note edge [0, 1] will be saved as {0: [1], 1: [0]}
-    def generate_adjacent_list(self, n, edges):
-        adjacent_dict = {}
-        for i in range(0, n):
-            adjacent_dict[i] = []
-        for edge in edges:
-            adjacent_dict[edge[0]].append(edge[1])
-            adjacent_dict[edge[1]].append(edge[0])
-        return adjacent_dict
-
-    # find the maximum height of all children
-    def find_max_child_height(self, root, prev, adjacent_dict):
-        max_child_height = 0
-        for child in adjacent_dict[root]:
-            if prev is None or child != prev:
-                max_child_height = max(max_child_height, 1 + self.find_max_child_height(child, root, adjacent_dict))
-        return max_child_height
-
     # 12/31 - Revisit
     # Idea:
     #   tree graph, N vertexes, N-1 edges.
     #   leaf vertex has 1 degree, inner vertex has a degree of at least 2.
     #   Work bottom up, from leaves to root, stop when n < 2.
-    def find_min_height_trees_revisit(self, n, edges):
+    def find_min_height_trees_nice(self, n, edges):
         if n == 1:
             return [0]
         adj = [set() for _ in xrange(n)]
@@ -104,6 +70,43 @@ class MinimumHeightTrees(object):
                     newLeaves.append(j)
             leaves = newLeaves
         return leaves
+
+    # Same idea, use list instead of set (not as good as above)
+    def find_min_height_trees(self, n, edges):
+        """
+        :type n: int
+        :type edges: List[List[int]]
+        :rtype: List[int]
+        """
+        if n == 1:
+            return [0]
+        matrix = self.get_adjacent_matrix(n, edges)
+        leaves = self.get_leaf_node(matrix)
+        while n > 2:
+            n -= len(leaves)
+            temp = []
+            for leaf in leaves:
+                next = matrix[leaf].pop()
+                matrix[next].pop(matrix[next].index(leaf))
+                if len(matrix[next]) == 1:
+                    temp.append(next)
+            leaves = temp
+        return leaves
+
+    def get_adjacent_matrix(self, n, edges):
+        matrix = [[] for _ in range(n)]
+        for start, end in edges:
+            matrix[start].append(end)
+            matrix[end].append(start)
+        return matrix
+
+    def get_leaf_node(self, matrix):
+        ret = []
+        for i in range(0, len(matrix)):
+            if len(matrix[i]) == 1:
+                ret.append(i)
+        return ret
+
 
 def main():
     test = MinimumHeightTrees()

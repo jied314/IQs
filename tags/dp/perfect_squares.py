@@ -1,22 +1,50 @@
 # 10/5 - DP, BFS, Math
-# Given a positive integer n, find the least number of perfect square numbers (for example, 1, 4, 9, 16, ...) which sum to n.
+#   Given a positive integer n, find the least number of perfect square numbers (for example, 1, 4, 9, 16, ...)
+# which sum to n.
 # For example, given n = 12, return 3 because 12 = 4 + 4 + 4; given n = 13, return 2 because 13 = 4 + 9.
 # Note:
 #   1. DP - find pattern
 #   2. use static variables to avoid duplicate calculation
 #      static variables can reuse previous results
-
 import sys
 import math
+from collections import deque
+
 
 class PerfectSquares(object):
     dp = [0]
+
+    # Test on LC - 50ms
+    # BFS - decrease by each possible square numbers level by level
+    # return once 0.
+    # refer to https://leetcode.com/discuss/62229/short-python-solution-using-bfs
+    def num_squares_bfs(self, n):
+        i = 1
+        squares = []
+        while i * i <= n:
+            squares.append(i*i)
+            i += 1
+
+        queue = {n}
+        level = 0
+        while queue:
+            level += 1
+            temp = set()
+            for x in queue:
+                for y in squares:
+                    if x == y:
+                        return level
+                    else:
+                        temp.add(x - y)
+            queue = temp
+        return 0
+
     # idea: d[i + j * j] = min(d[i + j * j], d[i] + 1)
     # for example: n = 10, i = 1, j = 1, 2, 3,
     # d[2]  = min(d[2],  d[1] + 1),
     # d[5]  = min(d[5],  d[1] + 1),
     # d[10] = min(d[10], d[1] + 1)
-    # num_squres for i is already found.
+    # num_squares for i is already found.
     def num_squares_dp1(self, n):
         """
         :type n: int
@@ -86,6 +114,7 @@ def main():
     print test.num_squares_static_dp(13)
     print test.num_squares_revisit(12)
     print test.num_squares_revisit(13)
+    print test.num_squares_bfs(13)
 
 
 if __name__ == '__main__':

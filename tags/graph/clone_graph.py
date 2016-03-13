@@ -1,11 +1,13 @@
 # 10/15 - DFS, BFS, Graph (M)
 # Definition for a undirected graph node
+from collections import deque
+
+
 class UndirectedGraphNode(object):
     def __init__(self, x):
         self.label = x
         self.neighbors = []
 
-from collections import deque
 
 class CloneGraph(object):
     # Test on LeetCode - 196ms
@@ -68,7 +70,7 @@ class CloneGraph(object):
                 clone_node_dict[node.label].neighbors.append(clone_node_dict[neighbor.label])
         return clone_root
 
-    # Test on LeetCode - 232ms
+    # Test on LeetCode - 96ms
     # use DFS, visit neighbors, clone if necessary.
     # Note: Remember visited nodes
     def clone_graph_dfs(self, node):
@@ -77,17 +79,14 @@ class CloneGraph(object):
 
     def clone_node(self, node, visited):
         if node is None:
-            return None
+            return node
 
-        node_clone = UndirectedGraphNode(node.label)
-        node_label = node.label
-        if node_label not in visited:
-            visited[node_label] = node_clone
+        if node.label not in visited:
+            visited[node.label] = UndirectedGraphNode(node.label)
+        node_clone = visited[node.label]
+
         for neighbor in node.neighbors:
-            neighbor_label = neighbor.label
-            if neighbor_label in visited:
-                neighbor_clone = visited[neighbor_label]
-            else:
-                neighbor_clone = self.clone_node(neighbor, visited)
-            node_clone.neighbors.append(neighbor_clone)
+            if neighbor.label not in visited:
+                visited[neighbor.label] = self.clone_node(neighbor, visited)
+            node_clone.neighbors.append(visited[neighbor.label])
         return node_clone

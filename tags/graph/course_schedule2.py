@@ -17,6 +17,7 @@
 # Another correct ordering is[0,2,1,3].
 from collections import deque
 
+
 class Solution(object):
     def find_order(self, numCourses, prerequisites):
         """
@@ -59,32 +60,30 @@ class Solution(object):
         # if has cycle or graph is not connected, len(ret) != numCourses
         return ret if len(ret) == numCourses else []
 
-    # Test on LC - 80, 64%
+    # Test on LC - 72ms, 88%
     def solve_DFS(self, adj, numCourses):
-        visited, in_visit = set(), set()
-        not_visit = set([i for i in range(numCourses)])
+        states = [-1] * numCourses
         ret = []
-        while not_visit:
-            node = not_visit.pop()
-            if not self.visit(node, adj, not_visit, visited, in_visit, ret):
+        for i in range(0, numCourses):
+            if states[i] == 1:  # visited
+                continue
+            if not self.visit(i, states, adj, ret):
                 return []
         ret.reverse()
         return ret
 
-    def visit(self, node, adj, not_visit, visited, in_visit, ret):
-        if node in in_visit:  # cycle
-            return False
-        if node in visited:  # already visited, return
+    def visit(self, node, states, adj, ret):
+        if states[node] == 1:  # visited
             return True
-        in_visit.add(node)
-        # visit all tos
-        for to in adj[node]:
-            if not self.visit(to, adj, not_visit, visited, in_visit, ret):
+        if states[node] == 0:  # in-visit
+            return False
+        # not visited, visit all neighbors before setting to visited
+        states[node] = 0
+        for neighbor in adj[node]:
+            if not self.visit(neighbor, states, adj, ret):
                 return False
-        # update for current node
+        states[node] = 1
         ret.append(node)
-        in_visit.remove(node)
-        visited.add(node)
         return True
 
 
