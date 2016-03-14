@@ -39,6 +39,7 @@ class Solution(object):
         return True
 
     # similar to has_cycle_dfs in undirected_graph
+    # Note: for an undirected graph, can traverse the whole connected graph starting from any vertex.
     def has_cycle_dfs(self, graph, v, visited, parent):
         visited[v] = True
         for adj in graph.adjs[v]:

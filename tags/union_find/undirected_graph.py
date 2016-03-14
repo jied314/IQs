@@ -53,7 +53,7 @@ class UndirectedGraph(object):
             if not visited[adj]:
                 if self.dfs_util(adj, visited, v):
                     return True
-            # if a visited adjacent and is not parent of current vertex, then there is a cycle.
+            # if is a visited adjacent and is not parent of current vertex, then there is a cycle.
             elif adj != parent:
                 return True
         return False

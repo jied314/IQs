@@ -9,6 +9,9 @@
 #         self.left = None
 #         self.right = None
 # 12/25 - Revisit
+from collections import deque
+
+
 class BinaryTreeRightSideView(object):
     # Test on LeetCode - 44ms
     def right_side_view(self, root):
@@ -28,6 +31,7 @@ class BinaryTreeRightSideView(object):
             self.visit(node.right, level+1, result)
             self.visit(node.left, level+1, result)
 
+    # Test on LC - 48ms, 75%
     # keep updating val (since traversal is left-> right)
     def right_side_view_recursive(self, root):
         """
@@ -48,8 +52,8 @@ class BinaryTreeRightSideView(object):
         self.helper(node.left, level+1, ret)
         self.helper(node.right, level+1, ret)
 
-    # Revisit - 12/25
-    # level-order-traversal -> record the last node (rightmost)
+    # Test on LC - 56ms, 27%
+    # level-order-traversal(BFS) -> record the last node (rightmost)
     def right_side_view_iterative(self, root):
         """
         :type root: TreeNode
@@ -57,16 +61,17 @@ class BinaryTreeRightSideView(object):
         """
         if root is None:
             return []
+        queue = deque()
+        queue.append(root)
         ret = []
-        parents = [root]
-        while parents:
-            temp = []
-            ret.append(parents[-1].val)
-            while parents:
-                node = parents.pop(0)
+        while queue:
+            ret.append(queue[-1].val)
+            temp = deque()
+            while queue:
+                node = queue.popleft()
                 if node.left is not None:
                     temp.append(node.left)
                 if node.right is not None:
                     temp.append(node.right)
-            parents = temp
+            queue = temp
         return ret
