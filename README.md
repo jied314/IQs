@@ -1,2 +1,2 @@
 # IQs
-This repo hosts all my IQs practise.
+This repo hosts all practise for interview preparations.
