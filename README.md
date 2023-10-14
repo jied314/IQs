@@ -1,2 +1,2 @@
-# IQs
-This repo hosts all practise for interview preparations.
+# Interview Preparations
+This repo hosts all practises for interview preparations.
