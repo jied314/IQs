@@ -1,7 +1,3 @@
-
-import java.util.*
-
-
 /**
  * Given an array nums of size n, return the majority element.
  *
@@ -36,6 +32,7 @@ private fun majorityElement_HashMap(nums: IntArray): Int {
 
 // Sort the array first and then find the middle element
 // Utilizes the fact that the majority element in a sorted array should always occupy the middle position
+// 
 private fun majorityElement_sort(nums: IntArray): Int {
     nums.sort()
     val size = nums.count()
