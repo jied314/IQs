@@ -1,12 +1,17 @@
 /**
- * Use binary search for the exact value
+ * The most basic and elementary form of BS.
+ * Used to search for an element or condition which can be determined by accessing a single index in the array.
+ *
+ * Search Condition can be determined without comparing to the element's neighbors (or use specific elements around it).
+ * No post-processing required because at each step.
+ *
  * O(LogN) Time Complexity & O(1) Space Complexity
  */
-private fun binarySearch(nums: IntArray, target: Int) : Int {
+private fun binarySearchBasic(nums: IntArray, target: Int) : Int {
     var left = 0
     var right = nums.size - 1
     while (left <= right) {
-        val mid = (left + right) / 2
+        val mid = left + (right - left) / 2
         if (nums[mid] < target) {
             left = mid + 1
         } else if (nums[mid] > target) {
@@ -21,6 +26,13 @@ private fun binarySearch(nums: IntArray, target: Int) : Int {
 }
 
 /**
+ * An advanced form of BS
+ * Use the element's right neighbor to determine if the condition is met and decide whether to go left or right.
+ * Post-processing required. Loop/Recursion ends when you have 1 element left.
+ * Need to assess if the remaining element meets the condition.
+ *
+ * E.g. First Bad Version
+ *
  * Use binary search to find the upper bound to insert the target number
  * O(LogN) Time Complexity & O(1) Space Complexity
  */

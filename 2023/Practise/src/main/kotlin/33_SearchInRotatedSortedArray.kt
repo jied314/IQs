@@ -40,7 +40,7 @@ private fun search(nums: IntArray, target: Int): Int {
 }
 
 private fun isSorted(nums: IntArray, startIndex: Int, endIndex: Int) : Boolean {
-    return nums[startIndex] <= nums[endIndex]
+    return startIndex <= endIndex && nums[startIndex] <= nums[endIndex]
 }
 
 private fun isWithinRange(nums: IntArray, startIndex: Int, endIndex: Int, target: Int) : Boolean {
