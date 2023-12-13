@@ -35,6 +35,7 @@ private fun preorderTraversalIteratively(root: TreeNode?): List<Int> {
     while (nodeStack.isNotEmpty()) {
         val node = nodeStack
     }
+    return emptyList()
 }
 
 fun main() {
