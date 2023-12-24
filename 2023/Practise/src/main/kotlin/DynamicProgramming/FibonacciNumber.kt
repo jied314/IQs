@@ -1,3 +1,5 @@
+package DynamicProgramming
+
 /**
  * Sample practise for Dynamic Programming
  */

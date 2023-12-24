@@ -29,4 +29,7 @@ private fun dailyTemperatures(temperatures: IntArray): IntArray {
 fun main() {
     val temperatures = intArrayOf(73,74,75,71,69,72,76,73)
     println(dailyTemperatures(temperatures).contentToString())
+
+    val a = ArrayDeque<Int>()
+    a.removeLast()
 }
