@@ -40,7 +40,7 @@ private fun postorderTraversalRecursively(root: TreeNode?, traversal: MutableLis
     }
 }
 
-private fun postorderTraversalIterativeInversePreorder(root: TreeNode?): List<Int> {
+private fun postorderTraversalIterativeReverse(root: TreeNode?): List<Int> {
     if (root == null) return emptyList()
 
     val traversal = mutableListOf<Int>()
@@ -97,6 +97,6 @@ fun main() {
     sixNode.left = fiveNode
 
     println(postorderTraversalRecursively(fourNode))
-    println(postorderTraversalIterativeInversePreorder(fourNode))
+    println(postorderTraversalIterativeReverse(fourNode))
     println(postorderTraversalIterative(fourNode))
 }

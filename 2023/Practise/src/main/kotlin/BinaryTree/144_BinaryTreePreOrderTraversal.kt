@@ -16,7 +16,7 @@ package BinaryTree
  */
 
 // Definition for a binary tree node
-class TreeNode(val num: Int) {
+class TreeNode(var num: Int) {
     var left: TreeNode? = null
     var right: TreeNode? = null
 }

@@ -9,6 +9,8 @@ package BinaryTree
  *   Only use inorder to check:
  *      if the current subtree is empty (= return None)
  *      or not (= continue to construct the subtree).
+ *
+ * O(N) Time Complexity & O(N) Space Complexity
  */
 
 // traverse postOrder backward (Root -> Right -> Left), postIndex always decrease, never skip
@@ -26,8 +28,7 @@ private fun buildTree(inorder: IntArray, inStart: Int, inEnd: Int, postorder: In
         return TreeNode(inorder[inStart])
     }
 
-    val rootValue = postorder[postIndex]
-    postIndex--
+    val rootValue = postorder[postIndex--]
     val rootNode = TreeNode(rootValue)
     val rootInIndex = inorder.indexOf(rootValue) // can speed up by building element->index map
     rootNode.right = buildTree(inorder, rootInIndex+1, inEnd, postorder)
