@@ -1,3 +1,5 @@
+package DynamicProgramming
+
 import kotlin.math.max
 
 /**
@@ -51,7 +53,8 @@ private fun robRecursive(nums: IntArray, startIndex: Int, length: Int): Int {
     else if (length == 1) nums[startIndex]
     else if (length == 2) max(nums[startIndex], nums[startIndex+1])
     else max(nums[startIndex] + robRecursive(nums, startIndex+2, length-2),
-        nums[startIndex+1] + robRecursive(nums,startIndex+3, length-3))
+        nums[startIndex+1] + robRecursive(nums,startIndex+3, length-3)
+    )
 }
 
 private fun robRecursiveWithMemorization(nums: IntArray): Int {
@@ -73,7 +76,8 @@ private fun robRecursiveWithMemorization(
     }
 
     val result = max(nums[startIndex] + robRecursiveWithMemorization(nums, startIndex + 2, length-2, visited),
-        nums[startIndex+1] + robRecursiveWithMemorization(nums, startIndex+3, length-3, visited))
+        nums[startIndex+1] + robRecursiveWithMemorization(nums, startIndex+3, length-3, visited)
+    )
     visited[startIndex] = result
     return result
 }
