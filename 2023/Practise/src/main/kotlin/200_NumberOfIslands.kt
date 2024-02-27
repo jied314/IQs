@@ -22,8 +22,11 @@ import kotlin.collections.removeFirst
  * Solutions:
  * 1. BFS
  *   O(M*N) Time Complexity & O(M*N) Space Complexity
+ *
  * 2. DFS with recursion - no need to maintain queue
  *   O(M*N) Time Complexity & O(M*N) Space Complexity
+ *
+ * Note: if is m == n, can also use UnionFind (see Graph package)
  */
 
 private const val LAND = '1'

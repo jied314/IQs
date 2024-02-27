@@ -18,8 +18,8 @@ package BinaryTree
  * 1. BFS (Level-order traversal) with Queue - Correct but memory limit exceeded
  *    O(N) Time Complexity & O(N) Space Complexity
  *
- * 2. DFS (In-order traversal) with clever recursion - amazing!
- *    In-order traversal naturally provides links to build a tree top-down. (Root -> Left -> Right)
+ * 2. DFS (Pre-order traversal) with clever recursion - amazing!
+ *    Pre-order traversal naturally provides links to build a tree top-down. (Root -> Left -> Right)
  *    Record children of leaf nodes as null for easy marking.
  *    O(N) Time Complexity & O(H) Space Complexity, O(N) Space Complexity for deserialization
  */

@@ -43,7 +43,7 @@ private fun connectBFS(root: Node?): Node? {
     return root
 }
 
-private fun connectRecursively(root: Node?): Node? {
+private fun connectDFSRecursively(root: Node?): Node? {
     if (root == null) return null
     if (root.left != null) { // Connection Type 1
         root.left!!.next = root.right
@@ -52,8 +52,8 @@ private fun connectRecursively(root: Node?): Node? {
         root.right!!.next = root.next!!.left
     }
     // DFS
-    if (root.left != null) connectRecursively(root.left)
-    if (root.right != null) connectRecursively(root.right)
+    if (root.left != null) connectDFSRecursively(root.left)
+    if (root.right != null) connectDFSRecursively(root.right)
     return root
 }
 
