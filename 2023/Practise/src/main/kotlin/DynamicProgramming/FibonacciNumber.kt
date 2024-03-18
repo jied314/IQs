@@ -2,6 +2,12 @@ package DynamicProgramming
 
 /**
  * Sample practise for Dynamic Programming
+ * Solutions:
+ * 1. Top-down with recursion
+ *    O(2^N) Time Complexity & O(1) Space Complexity
+ * 2. Top-down with recursion & memorization
+ *    O(N) Time Complexity & O(N) Space Complexity
+ * 3. Bottom-up with
  */
 private fun getFibonacciNumberBottomUp(i: Int): Int {
     if (i <= 1) return 0
@@ -26,15 +32,11 @@ private fun getFibonacciNumberRecursive(i: Int, visitedNumbers: MutableMap<Int, 
     if (i <= 1) return 0
     if (i == 2) return 1
 
-    if (visitedNumbers.contains(i)) {
-        visitedNumbers[i]?.let {
-            return it
-        }
+    if (!visitedNumbers.contains(i)) {
+        visitedNumbers[i] = getFibonacciNumberRecursive(i-1, visitedNumbers) +
+                getFibonacciNumberRecursive(i-2, visitedNumbers)
     }
-    val result = getFibonacciNumberRecursive(i-1, visitedNumbers) +
-            getFibonacciNumberRecursive(i-2, visitedNumbers)
-    visitedNumbers[i] = result
-    return result
+    return visitedNumbers[i]!!
 }
 
 fun main() {
