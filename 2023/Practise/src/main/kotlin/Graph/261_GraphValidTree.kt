@@ -40,10 +40,7 @@ private fun validTreeUnionFind(n: Int, edges: Array<IntArray>): Boolean {
 }
 
 private fun validTreeIterativeDFS(n: Int, edges: Array<IntArray>): Boolean {
-    val adjacencyList: MutableList<MutableList<Int>> = ArrayList()
-    for (i in 0 until n) {
-        adjacencyList.add(ArrayList())
-    }
+    val adjacencyList = Array<MutableList<Int>>(n) { mutableListOf() }
     for (edge in edges) {
         adjacencyList[edge[0]].add(edge[1])
         adjacencyList[edge[1]].add(edge[0])
@@ -121,15 +118,6 @@ private fun validTreeAdvancedTheoryIterativeDFS(n: Int, edges: Array<IntArray>):
     }
 
     return seen.size == n
-}
-
-fun twoSum(nums: IntArray, target: Int): IntArray {
-    for (i in nums.indices) {
-        for (j in i+1..<nums.size) {
-            if (nums[i] + nums[j] == target) return intArrayOf(i, j)
-        }
-    }
-    return intArrayOf()
 }
 
 fun main () {
